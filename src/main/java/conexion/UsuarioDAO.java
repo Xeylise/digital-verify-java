@@ -8,11 +8,26 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDAO {
 
+    private static final Logger LOGGER = Logger.getLogger(UsuarioDAO.class.getName());
+
+    public enum ResultadoInsercion {
+        INSERTADO,
+        DUPLICADO,
+        DATOS_INVALIDOS,
+        ERROR_BASE_DATOS
+    }
+
     // CREATE: Registrar un nuevo usuario
     public boolean insertar(Usuario usuario) {
+        return insertarConResultado(usuario) == ResultadoInsercion.INSERTADO;
+    }
+
+    public ResultadoInsercion insertarConResultado(Usuario usuario) {
 
         String sql = "INSERT INTO users "
                 + "(nickname_user, email_user, password_user, date_create, status_user_account) "
@@ -28,11 +43,17 @@ public class UsuarioDAO {
             stmt.setString(5, usuario.getStatusUserAccount());
 
             stmt.executeUpdate();
-            return true;
+            return ResultadoInsercion.INSERTADO;
 
         } catch (SQLException e) {
-            System.out.println("Error al insertar usuario: " + e.getMessage());
-            return false;
+            if (e.getErrorCode() == 1062) {
+                return ResultadoInsercion.DUPLICADO;
+            }
+            if (e.getErrorCode() == 1406 || "22001".equals(e.getSQLState())) {
+                return ResultadoInsercion.DATOS_INVALIDOS;
+            }
+            LOGGER.log(Level.SEVERE, "Error al insertar usuario en la base de datos.", e);
+            return ResultadoInsercion.ERROR_BASE_DATOS;
         }
     }
 
