@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Gaming Website</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/main_gaming.css" rel="stylesheet">
+</head>
+<body style="background-color: #090e17; color: #ffffff;">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container">
+                        <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                        <i class="fa-solid fa-chevron-right username-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav">
+                    <a href="home.html" class="nav-item-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="main_gaming.html" class="nav-item-link active">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="settings.html" class="nav-item-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="notifications.html" class="nav-item-link">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="nav-badge" id="sidebarBadge">1</span>
+                    </a>
+                    <a href="my_bets.html" class="nav-item-link">
+                        <i class="fa-solid fa-dice"></i>
+                        <span>My bets</span>
+                    </a>
+                    <a href="start_kyc.html" class="nav-item-link">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <span>Start KYC</span>
+                    </a>
+                    <a href="kyc_status_review.html" class="nav-item-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Verification status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="padding: 24px 20px;">
+            
+            <!-- Mobile Header (Mobile only) -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <div class="grid-menu-icon" onclick="toggleDrawer()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid var(--winarena-primary); background: none;" onclick="toggleDrawer()">
+                    <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- Page Content (Restoring Original Centered Design) -->
+            <div class="container h-100 d-flex flex-column justify-content-center">
+                <div class="row justify-content-center text-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="hero-section shadow-lg mb-4">
+                            <h1 class="display-4 fw-bold">Main Gaming Website</h1>
+                            <p class="lead">Bienvenido a la plataforma principal de juegos y apuestas deportivas.</p>
+                            <hr class="my-4 border-light opacity-50">
+                            <p class="small text-light opacity-75">Has sido redirigido desde el portal de verificación Digital Verify.</p>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="home.html" class="btn btn-outline-light px-4 py-2 rounded-pill">Back a Digital Verify</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="home.html" class="drawer-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="main_gaming.html" class="drawer-item active"><i class="fa-regular fa-user"></i> Profile</a>
+            <a href="settings.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="notifications.html" class="drawer-item"><i class="fa-regular fa-bell"></i> Notifications <span class="nav-badge">1</span></a>
+            <a href="my_bets.html" class="drawer-item"><i class="fa-solid fa-dice"></i> My bets</a>
+            <a href="start_kyc.html" class="drawer-item"><i class="fa-regular fa-circle-check"></i> Start KYC</a>
+            <a href="kyc_status_review.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Verification status</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

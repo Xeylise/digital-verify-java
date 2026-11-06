@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinArena - Home</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
+</head>
+<body style="background-color: var(--winarena-bg); color: var(--winarena-text);">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container">
+                        <span class="username-text" th:text="${user != null ? user.fullName : 'Carlos Mendoza'}">Carlos Mendoza</span>
+                        <i class="fa-solid fa-chevron-right username-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav">
+                    <a href="home.html" class="nav-item-link active">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="profile.html" class="nav-item-link">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="settings.html" class="nav-item-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="notifications.html" class="nav-item-link">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="nav-badge">1</span>
+                    </a>
+                    <a href="my_bets.html" class="nav-item-link">
+                        <i class="fa-solid fa-dice"></i>
+                        <span>My bets</span>
+                    </a>
+                    <a href="start_kyc.html" class="nav-item-link">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <span>Start KYC</span>
+                    </a>
+                    <a href="kyc_status_review.html" class="nav-item-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Verification status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            
+            <!-- Mobile Header -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <div class="grid-menu-icon" onclick="toggleDrawer()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid var(--winarena-primary); background: none;" onclick="toggleDrawer()">
+                    <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- Main Scroll Container -->
+            <div class="container-fluid p-0" style="max-width: 1000px; margin: 0 auto;">
+                
+                <!-- Welcome Label -->
+                <div class="mb-4">
+                    <span class="text-muted small fw-bold text-uppercase" style="letter-spacing: 0.5px;">Welcome back!</span>
+                </div>
+
+                <!-- Top Row: Profile Details & 3 Quick Action Category cards -->
+                <div class="row g-3 mb-4">
+                    <!-- Profile Rank Details Card -->
+                    <div class="col-lg-6">
+                        <div class="profile-rewards-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-circle" style="width: 56px; height: 56px; border: 2px solid var(--winarena-primary);">
+                                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold text-white mb-1" style="font-size: 16px;" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</h5>
+                                        <span class="text-muted small d-block">Rank: <span class="text-white fw-bold">Unranked</span></span>
+                                    </div>
+                                </div>
+                                <a href="#" class="text-decoration-none text-muted small fw-bold" onclick="alert('Rewards section under development.'); return false;">Go to Rewards <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i></a>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="rewards-progress-bar">
+                                <div class="rewards-progress-fill"></div>
+                                <div class="rewards-progress-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                            </div>
+                            <span class="text-muted small d-block mt-2" style="font-size: 11px;">0.00%</span>
+                        </div>
+                    </div>
+
+                    <!-- Esports Box -->
+                    <div class="col-4 col-lg-2">
+                        <div class="category-box">
+                            <div class="category-icon"><i class="fa-solid fa-desktop"></i></div>
+                            <h6 class="category-title">Esports</h6>
+                        </div>
+                    </div>
+                    <!-- Sports Box -->
+                    <div class="col-4 col-lg-2">
+                        <div class="category-box">
+                            <div class="category-icon"><i class="fa-solid fa-basketball"></i></div>
+                            <h6 class="category-title">Sports</h6>
+                        </div>
+                    </div>
+                    <!-- Casino Box -->
+                    <div class="col-4 col-lg-2">
+                        <div class="category-box">
+                            <div class="category-icon"><i class="fa-solid fa-dice"></i></div>
+                            <h6 class="category-title">Casino</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KYC Banner Notification -->
+                <div class="alert border-0 rounded-4 p-4 mb-4 text-white d-flex align-items-center justify-content-between flex-wrap gap-3" style="border: 1px solid var(--winarena-border) !important; background-color: var(--winarena-card-bg) !important;">
+                    <div class="d-flex align-items-start gap-3">
+                        <div style="font-size: 24px; color: var(--winarena-primary); margin-top: 2px;">
+                            <i class="fa-solid fa-circle-check text-success" th:if="${kycCase != null and kycCase.status == 'approved'}"></i>
+                            <i class="fa-solid fa-clock text-warning" th:if="${kycCase != null and kycCase.status == 'in_review'}"></i>
+                            <i class="fa-solid fa-circle-exclamation text-danger" th:if="${kycCase == null or kycCase.status == 'pending' or kycCase.status == 'rejected'}"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">
+                                <span th:if="${kycCase != null and kycCase.status == 'approved'}">Identity Verified</span>
+                                <span th:if="${kycCase != null and kycCase.status == 'in_review'}">Verification in Review</span>
+                                <span th:if="${kycCase != null and kycCase.status == 'rejected'}">Verification Rejected - Action Required</span>
+                                <span th:if="${kycCase == null or kycCase.status == 'pending'}">Complete your KYC verification</span>
+                            </h5>
+                            <p class="mb-0 text-muted small" style="max-width: 580px;">
+                                <span th:if="${kycCase != null and kycCase.status == 'approved'}">Your identity has been successfully validated. You have full unlimited access.</span>
+                                <span th:if="${kycCase != null and kycCase.status == 'in_review'}">Your documents have been submitted and are being reviewed by the compliance desk.</span>
+                                <span th:if="${kycCase != null and kycCase.status == 'rejected'}">Your document could not be verified. Please re-upload a clear copy.</span>
+                                <span th:if="${kycCase == null or kycCase.status == 'pending'}">Validate your identity quickly to withdraw your winnings securely and without withdrawal limits.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <a th:if="${kycCase == null or kycCase.status == 'pending' or kycCase.status == 'rejected'}" href="start_kyc.html" class="btn text-white btn-sm px-4 py-2 rounded-pill fw-bold text-uppercase" style="background-color: var(--winarena-primary); font-size: 12px; letter-spacing: 0.5px;">Start KYC</a>
+                    <a th:if="${kycCase != null and (kycCase.status == 'in_review' or kycCase.status == 'approved')}" href="kyc_status_review.html" class="btn text-white btn-sm px-4 py-2 rounded-pill fw-bold text-uppercase" style="background-color: var(--winarena-primary); font-size: 12px; letter-spacing: 0.5px;">Check Status</a>
+                </div>
+
+                <!-- Match List Heading -->
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span style="font-size: 20px; color: #ffffff;"><i class="fa-solid fa-desktop"></i></span>
+                    <h3 class="fw-bold text-white mb-0" style="font-size: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Esports (354)</h3>
+                </div>
+
+                <!-- Match Rows List -->
+                <div class="match-list-container">
+                    
+                    <!-- Match Row 1 (Locked Odds) -->
+                    <div class="match-row-card">
+                        <!-- Match Metadata -->
+                        <div class="match-details">
+                            <span style="color: #ef4444; font-size: 11px; font-weight: 700; text-transform: uppercase;">CoD</span>
+                            <span class="text-muted small ms-1" style="font-size: 10px;">BO9 | 58:50</span>
+                            <div class="text-muted small text-truncate" style="font-size: 11px; margin-top: 2px;">Call of Duty League Champions...</div>
+                        </div>
+                        
+                        <!-- Teams and vs Area -->
+                        <div class="match-teams-area">
+                            <div class="match-team team-right">
+                                <span>FaZe Vegas</span>
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="odds-lock-btn"><i class="fa-solid fa-lock"></i></div>
+                                <span class="text-muted small mx-1" style="font-size: 10px;">VS</span>
+                                <div class="odds-lock-btn"><i class="fa-solid fa-lock"></i></div>
+                            </div>
+                            <div class="match-team">
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>OpTic Texas</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Action links -->
+                        <div class="match-actions-area">
+                            <span class="text-muted small"><i class="fa-solid fa-video"></i></span>
+                            <span style="color: var(--winarena-primary); font-size: 11px; font-weight: 700;">+3</span>
+                        </div>
+                    </div>
+
+                    <!-- Match Row 2 -->
+                    <div class="match-row-card">
+                        <!-- Match Metadata -->
+                        <div class="match-details">
+                            <span style="color: #00d2ff; font-size: 11px; font-weight: 700; text-transform: uppercase;">LoL</span>
+                            <span class="text-muted small ms-1" style="font-size: 10px;">BO1 | Jul 20, 02:30</span>
+                            <div class="text-muted small text-truncate" style="font-size: 11px; margin-top: 2px;">KeSPA Cup 2026</div>
+                        </div>
+                        
+                        <!-- Teams and vs Area -->
+                        <div class="match-teams-area">
+                            <div class="match-team team-right">
+                                <span>Nongshim RedForce</span>
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="odds-button-winarena">2.67</div>
+                                <span class="text-muted small mx-1" style="font-size: 10px;">VS</span>
+                                <div class="odds-button-winarena">1.43</div>
+                            </div>
+                            <div class="match-team">
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>KT Rolster</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Action links -->
+                        <div class="match-actions-area">
+                            <span class="live-pill">Live</span>
+                            <span style="color: var(--winarena-primary); font-size: 11px; font-weight: 700;">+58</span>
+                        </div>
+                    </div>
+
+                    <!-- Match Row 3 -->
+                    <div class="match-row-card">
+                        <!-- Match Metadata -->
+                        <div class="match-details">
+                            <span style="color: #a855f7; font-size: 11px; font-weight: 700; text-transform: uppercase;">VAL</span>
+                            <span class="text-muted small ms-1" style="font-size: 10px;">BO3 | Jul 20, 04:00</span>
+                            <div class="text-muted small text-truncate" style="font-size: 11px; margin-top: 2px;">VCT 2026: China Stage 2</div>
+                        </div>
+                        
+                        <!-- Teams and vs Area -->
+                        <div class="match-teams-area">
+                            <div class="match-team team-right">
+                                <span>Titan Esports Club</span>
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="odds-button-winarena">2.96</div>
+                                <span class="text-muted small mx-1" style="font-size: 10px;">VS</span>
+                                <div class="odds-button-winarena">1.37</div>
+                            </div>
+                            <div class="match-team">
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>All Gamers</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Action links -->
+                        <div class="match-actions-area">
+                            <span class="live-pill">Live</span>
+                            <span style="color: var(--winarena-primary); font-size: 11px; font-weight: 700;">+282</span>
+                        </div>
+                    </div>
+
+                    <!-- Match Row 4 -->
+                    <div class="match-row-card">
+                        <!-- Match Metadata -->
+                        <div class="match-details">
+                            <span style="color: #00d2ff; font-size: 11px; font-weight: 700; text-transform: uppercase;">LoL</span>
+                            <span class="text-muted small ms-1" style="font-size: 10px;">BO1 | Jul 20, 06:15</span>
+                            <div class="text-muted small text-truncate" style="font-size: 11px; margin-top: 2px;">KeSPA Cup 2026</div>
+                        </div>
+                        
+                        <!-- Teams and vs Area -->
+                        <div class="match-teams-area">
+                            <div class="match-team team-right">
+                                <span>Nongshim RedForce</span>
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="odds-button-winarena">2.16</div>
+                                <span class="text-muted small mx-1" style="font-size: 10px;">VS</span>
+                                <div class="odds-button-winarena">1.63</div>
+                            </div>
+                            <div class="match-team">
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>FearX</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Action links -->
+                        <div class="match-actions-area">
+                            <span class="live-pill">Live</span>
+                            <span style="color: var(--winarena-primary); font-size: 11px; font-weight: 700;">+60</span>
+                        </div>
+                    </div>
+
+                    <!-- Match Row 5 -->
+                    <div class="match-row-card">
+                        <!-- Match Metadata -->
+                        <div class="match-details">
+                            <span style="color: #a855f7; font-size: 11px; font-weight: 700; text-transform: uppercase;">VAL</span>
+                            <span class="text-muted small ms-1" style="font-size: 10px;">BO3 | Jul 20, 07:00</span>
+                            <div class="text-muted small text-truncate" style="font-size: 11px; margin-top: 2px;">VCT 2026: China Stage 2</div>
+                        </div>
+                        
+                        <!-- Teams and vs Area -->
+                        <div class="match-teams-area">
+                            <div class="match-team team-right">
+                                <span>Bilibili Gaming</span>
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="odds-button-winarena">2.55</div>
+                                <span class="text-muted small mx-1" style="font-size: 10px;">VS</span>
+                                <div class="odds-button-winarena">1.47</div>
+                            </div>
+                            <div class="match-team">
+                                <span class="text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>XLG Esports</span>
+                            </div>
+                        </div>
+
+                        <!-- Match Action links -->
+                        <div class="match-actions-area">
+                            <span class="live-pill">Live</span>
+                            <span style="color: var(--winarena-primary); font-size: 11px; font-weight: 700;">+225</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Help Chat Widget (from screenshot) -->
+    <div class="floating-chat-widget" onclick="alert('Live Customer Support Center.');">
+        <i class="fa-solid fa-headset"></i>
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="home.html" class="drawer-item active"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="profile.html" class="drawer-item"><i class="fa-regular fa-user"></i> Profile</a>
+            <a href="settings.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="notifications.html" class="drawer-item"><i class="fa-regular fa-bell"></i> Notifications <span class="nav-badge">1</span></a>
+            <a href="my_bets.html" class="drawer-item"><i class="fa-solid fa-dice"></i> My bets</a>
+            <a href="start_kyc.html" class="drawer-item"><i class="fa-regular fa-circle-check"></i> Start KYC</a>
+            <a href="kyc_status_review.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Verification status</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+.validator-card {
+    background-color: #0e1420;
+    border: 1px solid #1f2a3f;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.validator-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #00d2ff;
+    letter-spacing: 0.8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timeline-mini {
+    position: relative;
+    padding-left: 20px;
+    border-left: 1px solid #1f2a3f;
+    margin-left: 10px;
+}
+
+.timeline-mini-item {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.timeline-mini-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #007cc4;
+}
+
+.timeline-mini-item.active::before {
+    background-color: #00d2ff;
+    box-shadow: 0 0 8px #00d2ff;
+}

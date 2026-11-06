@@ -1,0 +1,9 @@
+/* Custom date picker icon wrapper */
+.calendar-icon-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8f9cae;
+    pointer-events: none;
+}

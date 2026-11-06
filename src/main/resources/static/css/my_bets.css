@@ -1,0 +1,133 @@
+.bet-table-container {
+    background-color: var(--winarena-card-bg);
+    border: 1px solid var(--winarena-border);
+    border-radius: 16px;
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.bet-history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bet-history-table th {
+    color: var(--winarena-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--winarena-border);
+    text-align: left;
+}
+
+.bet-history-table td {
+    padding: 18px 15px;
+    border-bottom: 1px solid #1c2333;
+    color: #ffffff;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.bet-history-table tr:last-child td {
+    border-bottom: none;
+}
+
+.bet-status-won {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.bet-status-lost {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.dot-green {
+    width: 6px;
+    height: 6px;
+    background-color: #10b981;
+    border-radius: 50%;
+}
+
+.dot-red {
+    width: 6px;
+    height: 6px;
+    background-color: #ef4444;
+    border-radius: 50%;
+}
+
+.bet-page-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--winarena-border);
+    color: var(--winarena-text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.bet-page-item:hover,
+.bet-page-item.active {
+    background-color: var(--winarena-primary);
+    border-color: var(--winarena-primary);
+    color: #ffffff;
+}
+
+.bet-filter-select {
+    background-color: #070a14;
+    border: 1px solid var(--winarena-border);
+    color: #ffffff;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    min-width: 140px;
+}
+
+.export-history-btn {
+    background-color: transparent;
+    border: 1px solid var(--winarena-primary);
+    color: var(--winarena-primary);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+    height: 36px;
+}
+
+.export-history-btn:hover {
+    background-color: rgba(118, 51, 239, 0.08);
+    color: var(--winarena-primary-hover);
+    border-color: var(--winarena-primary-hover);
+    box-shadow: 0 0 10px rgba(118, 51, 239, 0.2);
+}

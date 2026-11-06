@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Verify - Verification Status</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body style="background-color: #090e17; color: #ffffff;">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container">
+                        <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                        <i class="fa-solid fa-chevron-right username-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav">
+                    <a href="home.html" class="nav-item-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="profile.html" class="nav-item-link">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="settings.html" class="nav-item-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="notifications.html" class="nav-item-link">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="nav-badge" id="sidebarBadge">1</span>
+                    </a>
+                    <a href="my_bets.html" class="nav-item-link">
+                        <i class="fa-solid fa-dice"></i>
+                        <span>My bets</span>
+                    </a>
+                    <a href="start_kyc.html" class="nav-item-link">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <span>Start KYC</span>
+                    </a>
+                    <a href="kyc_status_review.html" class="nav-item-link active">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Verification status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="padding: 24px 20px;">
+            
+            <!-- Mobile Header (Mobile only) -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-5 d-lg-none">
+                <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="toggleDrawer()">
+                    <div class="grid-menu-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Digital Verify</div>
+                </div>
+                
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid var(--winarena-primary); background: none; margin: 0;" onclick="toggleDrawer()">
+                    <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- KYC Container -->
+            <div class="kyc-wrapper">
+                
+                <!-- Main Timeline Container -->
+                <div id="main-timeline-view" class="w-100 text-center">
+                    <h1 class="kyc-title text-start">Verification status</h1>
+                    <p class="kyc-subtitle text-start mb-4">Welcome to Digital Verify.</p>
+
+                    <!-- Real Database Status Card -->
+                    <div id="realKycData"
+                         th:data-status="${kycCase != null ? kycCase.status : (user != null ? user.kycStatus : 'pending')}"
+                         th:data-notes="${kycCase != null ? kycCase.decisionNotes : ''}"
+                         class="mb-3 text-start p-3 rounded-4" style="background-color: var(--winarena-card-bg); border: 1px solid var(--winarena-border);" th:if="${kycCase != null}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted small">Case Reference:</span>
+                                <strong class="text-white ms-1" style="color: var(--winarena-primary-hover) !important;" th:text="${kycCase.caseNumber}">DV-1024</strong>
+                            </div>
+                            <div>
+                                <span class="badge py-2 px-3 text-uppercase"
+                                      th:classappend="${kycCase.status == 'approved'} ? 'bg-success' : (${kycCase.status == 'rejected'} ? 'bg-danger' : 'bg-primary')"
+                                      th:text="${kycCase.status}">IN_REVIEW</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Box -->
+                    <div class="notification-card p-4 mb-4">
+                        <div class="kyc-timeline">
+                            <!-- State: Pending (Common) -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot dotted"></div>
+                                <div class="timeline-title">Pending</div>
+                            </div>
+                            
+                            <!-- State: In Review (Dynamic based on state) -->
+                            <div id="timeline-review-item" class="timeline-item active-blue">
+                                <div class="timeline-dot active-blue" id="review-dot">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="timeline-title" id="review-title">In review</div>
+                                <div class="timeline-desc" id="review-desc">Last update: 1 day ago.</div>
+                            </div>
+
+                            <!-- State: Action Required (Only visible in Rejected state) -->
+                            <div id="timeline-action-item" class="timeline-item" style="display: none;">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-title d-flex align-items-center">
+                                    <span>Action required</span>
+                                    <span class="info-pill ms-2" onclick="openDetails('rejected')">info <i class="fa-solid fa-circle-info ms-1"></i></span>
+                                </div>
+                            </div>
+
+                            <!-- State: Completed -->
+                            <div id="timeline-completed-item" class="timeline-item">
+                                <div class="timeline-dot" id="completed-dot"></div>
+                                <div class="timeline-title d-flex align-items-center" id="completed-title-area">
+                                    <span>Completed</span>
+                                    <span class="info-pill ms-2" id="completed-info-pill" style="display: none;" onclick="openDetails('completed')">info <i class="fa-solid fa-circle-info ms-1"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-100 text-center mt-3">
+                            <button class="btn-kyc-primary w-75 py-3 text-center" onclick="location.reload()">Refresh status</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail View: Action Required Modal Overlay -->
+                <div id="detail-rejected-overlay" class="vr-popup-overlay" style="display: none;">
+                    <div class="vr-popup-card">
+                        <button class="vr-close-btn" onclick="closeDetails()">&times;</button>
+                        <div class="kyc-icon-frame" style="border-color: #ef4444; margin-top: 30px;">
+                            <i class="fa-solid fa-circle-exclamation text-danger" style="font-size: 36px;"></i>
+                        </div>
+                        <h1 class="kyc-title">Action required</h1>
+                        <p class="kyc-subtitle">
+                            We need additional documents to verify your identity.<br><br>
+                            <span class="text-danger fw-semibold d-block mt-2" id="rejected-reason-text" th:text="${kycCase != null and kycCase.decisionNotes != null ? kycCase.decisionNotes : 'Please submit a clear copy of your documents.'}">- A new proof of address from different source.</span>
+                        </p>
+                        <div class="w-100 text-center mt-4">
+                            <a href="start_kyc.html" class="btn-kyc-primary w-75 py-3 text-center d-inline-block rounded-pill text-decoration-none text-white fw-bold" style="background-color: var(--winarena-primary); font-size: 15px;">Submit new documents</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail View: Completed Modal Overlay -->
+                <div id="detail-completed-overlay" class="vr-popup-overlay" style="display: none;">
+                    <div class="vr-popup-card">
+                        <button class="vr-close-btn" onclick="closeDetails()">&times;</button>
+                        <div class="kyc-icon-frame" style="border-color: #10b981; margin-top: 30px;">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 36px;"></i>
+                        </div>
+                        <h1 class="kyc-title">Completed</h1>
+                        <p class="kyc-subtitle">Your account was reactivated successfully.</p>
+                        <div class="w-100 text-center mt-4">
+                            <a href="home.html" class="btn-kyc-primary w-75 py-3 text-center d-inline-block rounded-pill text-decoration-none text-white fw-bold" style="background-color: var(--winarena-primary); font-size: 15px;">Back to home</a>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="home.html" class="drawer-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="profile.html" class="drawer-item"><i class="fa-regular fa-user"></i> Profile</a>
+            <a href="settings.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="notifications.html" class="drawer-item"><i class="fa-regular fa-bell"></i> Notifications <span class="nav-badge">1</span></a>
+            <a href="my_bets.html" class="drawer-item"><i class="fa-solid fa-dice"></i> My bets</a>
+            <a href="start_kyc.html" class="drawer-item"><i class="fa-regular fa-circle-check"></i> Start KYC</a>
+            <a href="kyc_status_review.html" class="drawer-item active"><i class="fa-solid fa-clock-rotate-left"></i> Verification status</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/kyc_status_review.js"></script>
+</body>
+</html>

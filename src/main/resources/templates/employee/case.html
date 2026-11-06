@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Verify - Review Verification</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/case.css" rel="stylesheet">
+</head>
+<body class="employee-body" style="background-color: #090e17; color: #ffffff;">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/employee_avatar.png" alt="Employee Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container d-flex flex-column align-items-start" style="margin-left: 12px; gap: 1px;">
+                        <span class="username-text" style="font-size: 14px; font-weight: 700; color: #ffffff; margin: 0;">Paola Castro</span>
+                        <span class="text-muted" style="font-size: 11px; font-weight: 500; margin: 0;">@psarabia</span>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav pt-4">
+                    <a href="dashboard.html" class="nav-item-link">
+                        <i class="fa-solid fa-table-columns"></i>
+                        <span>Verification Dashboard</span>
+                    </a>
+                    <a href="queue.html" class="nav-item-link">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span>Verification Queue</span>
+                    </a>
+                    <a href="#" class="nav-item-link" onclick="alert('All Cases search section under development.'); return false;">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>All Cases</span>
+                    </a>
+                    <a href="#" class="nav-item-link" onclick="alert('Reports section under development.'); return false;">
+                        <i class="fa-solid fa-chart-simple"></i>
+                        <span>Reports</span>
+                    </a>
+                    <a href="#" class="nav-item-link" onclick="alert('Settings section under development.'); return false;">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="/activity_log.html" class="nav-item-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Activity Log</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/employee/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="padding: 24px 20px;">
+            
+            <!-- Mobile Header (Mobile only) -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <div class="grid-menu-icon" onclick="toggleDrawer()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid #00d2ff; background: none;" onclick="toggleDrawer()">
+                    <img src="/img/employee_avatar.png" alt="Employee Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- Dashboard Content Container -->
+            <div class="container-fluid" style="max-width: 1000px; margin: 0 auto; padding-top: 15px;">
+                
+                <!-- Back Link & Title Header -->
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <a href="dashboard.html" id="backLink" style="color: #ffffff; font-size: 20px; text-decoration: none;"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
+                    <h3 class="fw-bold text-white mb-0">Review Verification</h3>
+                </div>
+
+                <div class="alert alert-success py-2 mb-3" style="font-size: 13px; border-radius: 8px;" th:if="${successMessage}" th:text="${successMessage}"></div>
+                <div class="alert alert-danger py-2 mb-3" style="font-size: 13px; border-radius: 8px;" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+                <div class="row g-4" th:if="${kycCase != null}">
+                    
+                    <!-- Left Column: Applicant Info, Verification Details, Review Documents, Timeline -->
+                    <div class="col-lg-7">
+                        
+                        <!-- 1. Applicant Information & 2. Verification Details -->
+                        <div class="validator-card">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <div class="validator-section-title"><i class="fa-regular fa-user"></i> Applicant Information</div>
+                                    <p class="mb-1 small"><span class="text-muted">Name:</span> <strong class="text-white" th:text="${kycCase.playerName}">Juan Perez</strong></p>
+                                    <p class="mb-1 small"><span class="text-muted">Country:</span> <span th:text="${kycCase.country}">Colombia</span></p>
+                                    <p class="mb-1 small"><span class="text-muted">Account Status:</span> <span class="badge bg-success bg-opacity-25 text-success" th:text="${kycCase.accountStatus}">Active</span></p>
+                                    <p class="mb-0 small"><span class="text-muted">Risk Score:</span> <span class="badge bg-warning bg-opacity-25 text-warning" th:text="${kycCase.riskScore} + '/100'">88/100</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="validator-section-title"><i class="fa-solid fa-receipt"></i> Verification Details</div>
+                                    <p class="mb-1 small"><span class="text-muted">Case ID:</span> <strong style="color: var(--winarena-primary-hover);" th:text="${kycCase.caseNumber}">DV-1024</strong></p>
+                                    <p class="mb-1 small"><span class="text-muted">Account Number:</span> <span th:text="${kycCase.accountNumber}">80948</span></p>
+                                    <p class="mb-1 small"><span class="text-muted">Reason:</span> <span th:text="${kycCase.reason}">Proactive KYC</span></p>
+                                    <p class="mb-0 small"><span class="text-muted">Status:</span> <span class="pill-status-backoffice" th:text="${kycCase.status}">In Review</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Review Documents -->
+                        <div class="validator-card">
+                            <div class="validator-section-title"><i class="fa-regular fa-folder-open"></i> Review Documents</div>
+                            
+                            <div th:if="${documents == null or #lists.isEmpty(documents)}" class="text-muted small py-2">
+                                No documents attached to this case yet.
+                            </div>
+
+                            <div class="document-preview-box mb-2 py-3" th:each="doc : ${documents}">
+                                <div class="document-icon-wrapper" style="width: 36px; height: 36px;">
+                                    <i class="fa-regular fa-file-pdf" th:if="${#strings.endsWith(#strings.toLowerCase(doc.fileName), '.pdf')}"></i>
+                                    <i class="fa-regular fa-image" th:unless="${#strings.endsWith(#strings.toLowerCase(doc.fileName), '.pdf')}"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold text-white mb-0" style="font-size: 14px;" th:text="${doc.fileName}">document.pdf</h6>
+                                    <span class="text-muted" style="font-size: 11px;" th:text="${doc.documentType} + ' • ' + ${doc.status}">Proof of Address • PENDING</span>
+                                </div>
+                                <div>
+                                    <span class="badge bg-secondary" th:text="${doc.status}">PENDING</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Timeline / Audit Logs -->
+                        <div class="validator-card">
+                            <div class="validator-section-title"><i class="fa-solid fa-route"></i> Timeline &amp; Activity Log</div>
+                            <div class="timeline-mini">
+                                <div class="timeline-mini-item" th:each="log : ${logs}">
+                                    <div class="small fw-bold text-white" th:text="${log.action} + ' by ' + ${log.operatorName}">Status Changed by Paola Castro</div>
+                                    <div class="text-muted" style="font-size: 11px;" th:text="${log.details}">Details</div>
+                                    <div class="text-muted" style="font-size: 10px;" th:text="${#temporals.format(log.createdAt, 'dd MMM yyyy, HH:mm')}">19 Jul 2026, 16:30</div>
+                                </div>
+                                <div class="timeline-mini-item active" th:if="${logs == null or #lists.isEmpty(logs)}">
+                                    <div class="small fw-bold">Case Submitted</div>
+                                    <div class="text-muted" style="font-size: 11px;">Awaiting operator actions</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Internal Notes & Decision Panel -->
+                    <div class="col-lg-5">
+                        
+                        <!-- Decision Form -->
+                        <form th:action="@{'/employee/case/' + ${kycCase.id} + '/decision'}" method="POST">
+                            <input type="hidden" name="caseId" th:value="${kycCase.id}">
+                            
+                            <!-- 5. Internal Notes -->
+                            <div class="validator-card">
+                                <div class="validator-section-title"><i class="fa-regular fa-comment-dots"></i> Internal Decision Notes</div>
+                                <textarea class="comments-textarea mb-0" name="decisionNotes" th:text="${kycCase.decisionNotes}" placeholder="Enter comments or reason for decision here..."></textarea>
+                            </div>
+
+                            <!-- 6. Decision Panel -->
+                            <div class="validator-card">
+                                <div class="validator-section-title"><i class="fa-solid fa-gavel"></i> Decision Panel</div>
+                                <p class="text-muted small mb-3">Choose the appropriate actions for this verification.</p>
+                                
+                                <div class="mb-3">
+                                    <label class="settings-emp-label text-white small fw-bold">Verification Decision</label>
+                                    <select name="verificationDecision" class="form-select bg-dark text-white border-secondary mb-2" style="font-size: 12px;">
+                                        <option value="Approve Verification" selected>Approve Verification</option>
+                                        <option value="Reject Verification (Needs Reupload)">Reject Verification (Needs Reupload)</option>
+                                        <option value="Request Additional Documents">Request Additional Documents</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="settings-emp-label text-white small fw-bold">Account Status Decision</label>
+                                    <select name="accountStatusDecision" class="form-select bg-dark text-white border-secondary mb-2" style="font-size: 12px;">
+                                        <option value="Reactivate Account" selected>Reactivate Account</option>
+                                        <option value="Permanently Close Account">Permanently Close Account</option>
+                                        <option value="Not Applicable">Not Applicable</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" name="status" value="approved" class="btn-approve-vr w-100 mb-2 border-0">Submit Decision (Approve)</button>
+                                <button type="submit" name="status" value="rejected" class="btn-reject-submit w-100 mb-2 border-0">Reject Decision</button>
+                            </div>
+                        </form>
+
+                        <!-- 7. Seguimiento History -->
+                        <div class="validator-card mt-3" th:if="${seguimiento != null and not #lists.isEmpty(seguimiento)}">
+                            <div class="validator-section-title"><i class="fa-solid fa-timeline"></i> Tracking &amp; Decisions History</div>
+                            <div class="p-2 mb-2 rounded bg-dark border border-secondary border-opacity-25" th:each="s : ${seguimiento}">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-success bg-opacity-25 text-success small" th:text="${s.verificationDecision}">Approve</span>
+                                    <span class="text-muted small" style="font-size: 10px;" th:text="${#temporals.format(s.createdAt, 'MMM dd, HH:mm')}">Sep 06</span>
+                                </div>
+                                <div class="small text-white" th:text="'Account Action: ' + ${s.accountStatusDecision}">Account Action</div>
+                                <div class="small text-muted mt-1" th:if="${s.comments}" th:text="${s.comments}">Comments</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid #00d2ff; background: none;">
+                <img src="/img/employee_avatar.png" alt="Employee Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text">Paola Castro</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="dashboard.html" class="drawer-item active"><i class="fa-solid fa-list-check"></i> Dashboard</a>
+            <a href="/activity_log.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Audit Log</a>
+            <a href="/settings_employee.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/employee/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Screen 3: Popup Overlay (Initially hidden) -->
+    <div id="vrPopupOverlay" class="vr-popup-overlay" style="display: none;">
+        <div class="vr-popup-card">
+            <!-- Close Cross -->
+            <button class="vr-close-btn" onclick="closePopup()">&times;</button>
+            
+            <!-- Checkmark Icon -->
+            <div class="vr-check-icon-circle">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <h4 class="fw-bold text-white mb-2">Sent to VR team</h4>
+            <p class="text-muted small mb-4">Case VD-0124 was validated and pending for VR updates.</p>
+            
+            <button class="btn-login-submit" onclick="redirectToDashboard()">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Script to handle flow interaction and overlay toggling -->
+    <script src="/js/case.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

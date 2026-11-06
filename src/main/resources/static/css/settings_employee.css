@@ -1,0 +1,182 @@
+/* Settings Employee Custom Styles */
+
+.settings-emp-card {
+    background-color: var(--winarena-card-bg);
+    border: 1px solid var(--winarena-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.settings-emp-card:hover {
+    border-color: rgba(118, 51, 239, 0.4);
+}
+
+.settings-emp-card-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--winarena-primary-hover);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settings-emp-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--winarena-text-muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+.settings-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.settings-input-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--winarena-text-muted);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.settings-emp-input {
+    background-color: #070a14;
+    border: 1px solid var(--winarena-border);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 10px 14px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.settings-emp-input.has-icon {
+    padding-left: 38px;
+}
+
+.settings-emp-input:focus {
+    border-color: var(--winarena-primary);
+    background-color: #0a0f1d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 51, 239, 0.15);
+}
+
+.settings-emp-input:disabled,
+.settings-emp-input[readonly] {
+    background-color: #090e1a;
+    color: #8f9cae;
+    cursor: default;
+    border-color: rgba(42, 47, 69, 0.6);
+}
+
+.settings-emp-select {
+    background-color: #070a14;
+    border: 1px solid var(--winarena-border);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 10px 14px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-emp-select.has-icon {
+    padding-left: 38px;
+}
+
+.settings-emp-select:focus {
+    border-color: var(--winarena-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 51, 239, 0.15);
+}
+
+.settings-emp-select option {
+    background-color: #0e1422;
+    color: #ffffff;
+}
+
+/* Password update button */
+.btn-update-password {
+    background-color: transparent;
+    border: 1px solid var(--winarena-primary);
+    color: var(--winarena-primary-hover);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 9px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-update-password:hover {
+    background-color: var(--winarena-primary);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(118, 51, 239, 0.35);
+}
+
+/* Save Changes Bottom Button */
+.btn-save-settings {
+    background-color: var(--winarena-primary);
+    border: 1px solid var(--winarena-primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 11px 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 18px rgba(118, 51, 239, 0.35);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.btn-save-settings:hover {
+    background-color: var(--winarena-primary-hover);
+    border-color: var(--winarena-primary-hover);
+    box-shadow: 0 4px 25px rgba(118, 51, 239, 0.55);
+    transform: translateY(-1px);
+}
+
+/* Switches */
+.form-switch .form-check-input {
+    width: 2.7em;
+    height: 1.4em;
+    background-color: #1a2233;
+    border-color: var(--winarena-border);
+    cursor: pointer;
+    transition: background-position .15s ease-in-out;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--winarena-primary) !important;
+    border-color: var(--winarena-primary) !important;
+    box-shadow: 0 0 10px rgba(118, 51, 239, 0.4);
+}
+
+/* Profile summary card inside User Profile */
+.profile-badge-role {
+    background-color: rgba(118, 51, 239, 0.15);
+    color: var(--winarena-primary-hover);
+    border: 1px solid rgba(118, 51, 239, 0.3);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+}

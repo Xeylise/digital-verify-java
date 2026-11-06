@@ -1,1 +1,6 @@
-C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\conexion\AppTest.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\controller\WebControllerTests.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\repository\JdbcRepositoryTests.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\e2e\KycClientEmployeeConnectionE2ETest.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\employee\EmployeeQueueAndCasesWorkflowTests.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\employee\EmployeeAuthAndSecurityTests.java
+C:\Users\User\Documents\Formación_SENA_ADSO\02_Proyectos\Fase 3\Week october 16 2026\Djava\conexion-jdbc\src\test\java\com\digitalverify\employee\EmployeeReportsAndActivityLogTests.java

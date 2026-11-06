@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Verify - Join</title>
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/register.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="login-centered-wrapper">
+        
+        <div class="login-container animated-login-card" style="max-width: 440px; width: 100%;">
+            
+            <!-- Card Register / Join -->
+            <div class="card-login">
+                
+                <!-- Logo Header inside the Card (No Close 'X' Button) -->
+                <div class="card-brand-header">
+                    <div class="logo-container">
+                        <img src="/img/logo.svg" alt="Digital Verify" width="24" height="32">
+                        <div class="logo-text" style="font-size: 20px;">Digital Verify</div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button class="tab-btn" onclick="window.location.href='index.html'">Log in</button>
+                    <div class="tab-divider-text">with</div>
+                    <button class="tab-btn active">Join</button>
+                </div>
+
+                    <!-- Form -->
+                    <form action="/register" method="POST">
+                        <div class="alert alert-danger py-2 mb-3" style="font-size: 13px; border-radius: 8px;" th:if="${error}" th:text="${error}"></div>
+
+                        <!-- Full Name Field -->
+                        <div class="mb-3">
+                            <div class="form-label">Full Name:</div>
+                            <div class="input-group-custom">
+                                <input type="text" name="fullName" class="form-control-custom" id="fullName" required placeholder="Juan Perez">
+                            </div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <div class="form-label">Email:</div>
+                            <div class="input-group-custom">
+                                <input type="email" name="email" class="form-control-custom" id="email" required placeholder="example@email.com">
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <div class="form-label">Password:</div>
+                            <div class="input-group-custom">
+                                <input type="password" name="password" class="form-control-custom" id="password" required placeholder="Enter password">
+                                <button type="button" class="password-toggle" id="togglePasswordBtn">
+                                    <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Date of Birth Field -->
+                        <div class="mb-3">
+                            <div class="form-label">Date of Birth:</div>
+                            <div class="input-group-custom">
+                                <input type="text" class="form-control-custom" id="dob" required placeholder="YYYY-MM-DD" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+                                <div class="calendar-icon-btn">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Age Checkbox -->
+                        <div class="form-check mb-4 mt-2">
+                            <input class="form-check-input" type="checkbox" id="ageCheck" required style="background-color: #0d131e; border-color: #00d2ff;">
+                            <label class="form-check-label text-muted small" for="ageCheck" style="cursor: pointer; user-select: none;">
+                                I'm over 18 years old
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-login-submit">Join</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Script for Password Toggle and Date Handling -->
+    <script src="/js/register.js"></script>
+</body>
+</html>

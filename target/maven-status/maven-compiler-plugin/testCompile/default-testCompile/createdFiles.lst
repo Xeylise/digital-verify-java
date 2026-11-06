@@ -1,0 +1,6 @@
+com\digitalverify\repository\JdbcRepositoryTests.class
+com\digitalverify\employee\EmployeeReportsAndActivityLogTests.class
+com\digitalverify\employee\EmployeeAuthAndSecurityTests.class
+com\digitalverify\employee\EmployeeQueueAndCasesWorkflowTests.class
+com\digitalverify\controller\WebControllerTests.class
+com\digitalverify\e2e\KycClientEmployeeConnectionE2ETest.class

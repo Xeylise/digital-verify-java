@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Verify - All Cases</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/queue.css" rel="stylesheet">
+    <link href="/css/all_cases.css" rel="stylesheet">
+</head>
+<body class="employee-body" style="background-color: var(--winarena-bg); color: var(--winarena-text); overflow: hidden; height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Top Navbar -->
+    <div class="backoffice-top-navbar">
+        <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Menu Toggle Button (Hamburger) -->
+            <button type="button" class="btn border-0 text-white d-lg-none p-1 me-1" onclick="toggleDrawer()" style="background: none; line-height: 1;">
+                <i class="fa-solid fa-bars fs-5"></i>
+            </button>
+            <img src="/img/logo.svg" alt="Digital Verify" width="24" height="32">
+            <span class="logo-text fw-bold text-white fs-5" style="letter-spacing: 0.5px;">Digital Verify</span>
+            <span class="badge ms-2" style="background-color: var(--winarena-bg-purple-dark); color: var(--winarena-primary-hover); font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 8px;">Backoffice</span>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <!-- Notification Bell -->
+            <button type="button" class="position-relative cursor-pointer text-muted fs-5 border-0 bg-transparent p-0" title="Notifications" onclick="openNotificationsModal()">
+                <i class="fa-regular fa-bell"></i>
+                <span id="headerBellBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px; padding: 3px 6px;">3</span>
+            </button>
+
+            <hr style="width: 1px; height: 24px; background-color: var(--winarena-border); border: none; margin: 0 10px;">
+
+            <!-- User Dropdown Details -->
+            <div class="position-relative" id="userProfileDropdownContainer">
+                <div class="d-flex align-items-center gap-2 cursor-pointer" onclick="toggleUserDropdown(event)">
+                    <img src="/img/employee_avatar.png" alt="Paola Castro" class="avatar-image" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--winarena-primary);">
+                    <div class="d-flex flex-column align-items-start text-start d-none d-sm-block">
+                        <span class="text-white fw-bold" style="font-size: 13px; line-height: 1.2;">Paola Castro</span>
+                        <span class="text-muted" style="font-size: 11px; line-height: 1.2;">Internal User</span>
+                    </div>
+                    <span class="text-muted small ms-1"><i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></span>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="userProfileDropdown" class="user-dropdown-menu">
+                    <div class="px-3 py-2 border-bottom border-secondary border-opacity-25 mb-1">
+                        <span class="text-white fw-bold d-block small">Paola Castro</span>
+                        <span class="text-muted" style="font-size: 11px;">@psarabia • Backoffice</span>
+                    </div>
+                    <a href="/employee/logout" class="user-dropdown-item danger-item">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Main Body wrapper -->
+    <div class="app-wrapper" style="flex: 1; height: calc(100vh - 57px); overflow: hidden;">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar" style="background-color: #070a14; border-right: 1px solid var(--winarena-border);">
+            <div class="sidebar-nav pt-4">
+                <a href="dashboard.html" class="nav-item-link">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Verification Dashboard</span>
+                </a>
+                <a href="queue.html" class="nav-item-link">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Verification Queue</span>
+                </a>
+                <a href="all-cases.html" class="nav-item-link active">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>All Cases</span>
+                </a>
+                <a href="reports.html" class="nav-item-link">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings_employee.html" class="nav-item-link">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="activity_log.html" class="nav-item-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Activity Log</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="padding: 30px; overflow-y: auto; height: 100%;">
+            
+            <!-- Header Title Row -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <div class="text-start">
+                    <h2 class="fw-extrabold text-white mb-1" style="font-size: 26px;">All Cases</h2>
+                    <p class="text-muted small mb-0">View and manage all verification cases.</p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2">
+                    <button class="export-history-btn" id="refreshAllCasesBtn" style="height: 38px; border-color: var(--winarena-border); color: #ffffff;" onclick="refreshAllCasesTable()"><i class="fa-solid fa-rotate" id="refreshAllCasesIcon"></i> Refresh</button>
+                </div>
+            </div>
+
+            <!-- KPI Row (4 cards matching the reference image) -->
+            <div class="row g-3 mb-4 text-start">
+                <!-- KPI 1: TOTAL CASES -->
+                <div class="col-md-3">
+                    <div class="all-cases-kpi-card active-purple d-flex align-items-center gap-3">
+                        <div class="all-cases-kpi-icon-box" style="background-color: rgba(118, 51, 239, 0.2); color: var(--winarena-primary-hover);">
+                            <i class="fa-regular fa-folder-open"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title" style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">TOTAL CASES</div>
+                            <div class="kpi-value-large mb-0" style="font-size: 26px; font-weight: 800; color: #ffffff;">248</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- KPI 2: PENDING -->
+                <div class="col-md-3">
+                    <div class="all-cases-kpi-card d-flex align-items-center gap-3">
+                        <div class="all-cases-kpi-icon-box" style="background-color: rgba(239, 68, 68, 0.15); color: #ef4444;">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title" style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">PENDING</div>
+                            <div class="kpi-value-large mb-0" style="font-size: 26px; font-weight: 800; color: #ffffff;">12</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- KPI 3: IN REVIEW -->
+                <div class="col-md-3">
+                    <div class="all-cases-kpi-card d-flex align-items-center gap-3">
+                        <div class="all-cases-kpi-icon-box" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title" style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">IN REVIEW</div>
+                            <div class="kpi-value-large mb-0" style="font-size: 26px; font-weight: 800; color: #ffffff;">18</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- KPI 4: COMPLETED -->
+                <div class="col-md-3">
+                    <div class="all-cases-kpi-card d-flex align-items-center gap-3">
+                        <div class="all-cases-kpi-icon-box" style="background-color: rgba(16, 185, 129, 0.15); color: #10b981;">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title" style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">COMPLETED</div>
+                            <div class="kpi-value-large mb-0" style="font-size: 26px; font-weight: 800; color: #ffffff;">218</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 p-3 rounded-4" style="background-color: var(--winarena-card-bg); border: 1px solid var(--winarena-border);">
+                <div class="d-flex align-items-center gap-3 flex-wrap flex-grow-1">
+                    <!-- Search input -->
+                    <div class="position-relative flex-grow-1" style="max-width: 380px;">
+                        <input type="text" id="allCasesSearchInput" oninput="filterAllCasesTable()" placeholder="Search by case ID, account number..." class="form-control-custom w-100" style="padding-left: 36px; height: 38px; font-size: 13px;">
+                        <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 12px; font-size: 12px;"></i>
+                    </div>
+
+                    <!-- Reason Dropdown -->
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted small fw-bold" style="font-size: 11px; text-transform: uppercase;">Reason:</span>
+                        <select id="allCasesReasonSelect" onchange="filterAllCasesTable()" class="queue-filter-select" style="min-width: 170px;">
+                            <option value="all">All Reasons</option>
+                            <option value="fraud_review">Fraud Review</option>
+                            <option value="proactive_kyc">Proactive KYC</option>
+                            <option value="withdrawal_threshold">Withdrawal Threshold</option>
+                            <option value="high_frequency">High Frequency</option>
+                            <option value="pep_sanctions">PEP & Sanctions</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="#" class="text-decoration-none text-muted small" onclick="clearAllCasesFilters(); return false;"><i class="fa-solid fa-xmark"></i> Clear all</a>
+                </div>
+            </div>
+
+            <!-- All Cases Table Card -->
+            <div class="cases-table-card text-start">
+                <div class="table-responsive">
+                    <table class="cases-table" id="allCasesTable">
+                        <thead>
+                            <tr>
+                                <th>Case ID</th>
+                                <th>Player Name</th>
+                                <th>Account Number</th>
+                                <th>Verification Reason</th>
+                                <th>Status</th>
+                                <th>Date Received</th>
+                                <th>Owner</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="c : ${cases}" th:attr="data-case=${c.caseNumber},data-account=${c.accountNumber},data-player=${c.playerName},data-reason=${c.reason},data-status=${c.status},data-id=${c.id}">
+                                <td style="color: var(--winarena-primary-hover); font-weight: 700; cursor: pointer;"
+                                    th:attr="data-id=${c.id}"
+                                    th:onclick="'window.openReviewModal ? window.openReviewModal(' + ${c.id} + ') : openReviewModal(' + ${c.id} + '); return false;'"
+                                    onclick="window.openReviewModal ? window.openReviewModal(this.getAttribute('data-id') || 1) : openReviewModal(this.getAttribute('data-id') || 1); return false;"
+                                    th:text="${c.caseNumber}">DV-1023</td>
+                                <td>
+                                    <span class="text-white fw-bold" th:text="${c.playerName}">Paola Castro Player</span>
+                                </td>
+                                <td th:text="${c.accountNumber}">78125</td>
+                                <td>
+                                    <i class="fa-solid fa-shield-halved me-1 text-muted" th:if="${c.reason == 'fraud_review'}"></i>
+                                    <i class="fa-regular fa-user me-1 text-muted" th:unless="${c.reason == 'fraud_review'}"></i>
+                                    <span th:text="${c.reason}">Fraud Review</span>
+                                </td>
+                                <td>
+                                    <span th:class="'badge-status-dot badge-status-' + ${c.status}" th:text="${c.status}">Pending</span>
+                                </td>
+                                <td class="text-muted" style="font-size: 12px;" th:text="${#temporals.format(c.submittedAt, 'MMM dd, yyyy HH:mm')}">May 23, 2026</td>
+                                <td class="text-muted small">
+                                    <i class="fa-regular fa-user me-1"></i>
+                                    <span th:text="${c.assignedTo}">Unassigned</span>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn-table-action"
+                                       th:attr="data-id=${c.id}"
+                                       th:onclick="'window.openReviewModal ? window.openReviewModal(' + ${c.id} + ') : openReviewModal(' + ${c.id} + '); return false;'"
+                                       onclick="window.openReviewModal ? window.openReviewModal(this.getAttribute('data-id') || 1) : openReviewModal(this.getAttribute('data-id') || 1); return false;">
+                                        <i class="fa-regular fa-eye"></i> View Details
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Footer Pagination matching reference image and queue/dashboard style -->
+                <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-2" id="allCasesPaginationControls">
+                        <a href="#" class="bet-page-item" onclick="changeAllCasesPage('prev'); return false;"><i class="fa-solid fa-chevron-left"></i></a>
+                        <a href="#" class="bet-page-item active" onclick="goToAllCasesPage(1); return false;">1</a>
+                        <a href="#" class="bet-page-item" onclick="goToAllCasesPage(2); return false;">2</a>
+                        <a href="#" class="bet-page-item" onclick="goToAllCasesPage(3); return false;">3</a>
+                        <a href="#" class="bet-page-item" onclick="changeAllCasesPage('next'); return false;"><i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                    <span class="text-muted small" id="allCasesShowingText">Showing 1 to 8 of 248 cases</span>
+                </div>
+            </div>
+
+            <!-- Bottom Information card matching reference image -->
+            <div class="alert border-0 rounded-4 p-4 text-start text-white d-flex align-items-center gap-3" style="border: 1px solid var(--winarena-border) !important; background-color: var(--winarena-card-bg) !important;">
+                <div style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-circle-info"></i></div>
+                <div>
+                    <h5 class="fw-bold mb-1" style="font-size: 14px; color: var(--winarena-primary-hover);">Information</h5>
+                    <p class="mb-0 text-muted small">This page shows all cases in the system, regardless of their current stage. Use the filters to find specific cases and manage them efficiently.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- REVIEW VERIFICATION MODAL (High Fidelity Overlay) -->
+    <div id="reviewCaseModal" class="vr-popup-overlay" style="display: none; background-color: rgba(7, 10, 20, 0.92); backdrop-filter: blur(5px); z-index: 1100; overflow-y: auto; padding: 40px 15px;">
+        <div class="container py-4 my-auto" style="max-width: 1200px; width: 100%;">
+            <div class="card-login p-4 position-relative text-start" style="background-color: var(--winarena-card-bg); border: 1px solid var(--winarena-border); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.65);">
+                
+                <!-- Close Button -->
+                <button class="vr-close-btn" onclick="closeReviewModal()" style="top: 15px; right: 20px; font-size: 28px; background: none; border: none; color: var(--winarena-text-muted); cursor: pointer;">&times;</button>
+                
+                <!-- Modal Header -->
+                <div class="mb-4">
+                    <h3 class="fw-bold text-white mb-1" style="font-size: 22px;" id="reviewModalTitle">Review Verification</h3>
+                    <p class="text-muted small mb-3">Review and verify the information, documents and details of this case.</p>
+                    <div class="d-flex align-items-center gap-3 flex-wrap" style="font-size: 12px;">
+                        <span id="reviewCaseStatusBadge" class="badge px-3 py-1 rounded-pill fw-bold" style="background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">PENDING</span>
+                        <span class="text-muted" id="reviewSubmittedText">• Submitted: May 23, 2026 10:14 AM</span>
+                        <span class="text-muted" id="reviewAssignedText">• Waiting for assignment</span>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="border-bottom border-secondary border-opacity-25 pb-2 mb-4">
+                    <span class="fw-bold text-white pb-2" style="border-bottom: 2px solid var(--winarena-primary); font-size: 13px; cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase;">Overview</span>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Left Column (65% width) -->
+                    <div class="col-lg-8">
+                        <div class="row g-3 mb-4">
+                            <!-- Account Info Card -->
+                            <div class="col-md-6">
+                                <div class="p-3 rounded-4" style="background-color: #070a14; border: 1px solid var(--winarena-border); height: 100%;">
+                                    <h6 class="fw-bold text-white mb-3" style="font-size: 12px; text-transform: uppercase; color: var(--winarena-primary-hover) !important; letter-spacing: 0.5px;"><i class="fa-regular fa-user me-2"></i> Account Information</h6>
+                                    
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Customer Name</span>
+                                        <span class="fw-bold text-white small" id="reviewPlayerName">Carlos Mendoza</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Account Number</span>
+                                        <span class="fw-bold text-white small" id="reviewAccountNumber">80948</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Country</span>
+                                        <span class="fw-bold text-white small" id="reviewCountry">United States</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Account Status</span>
+                                        <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-25" id="reviewAccountStatus" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Suspended</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Verification Reason</span>
+                                        <span class="fw-bold text-white small" id="reviewVerificationReason"><i class="fa-solid fa-shield-halved text-muted me-1"></i> Fraud Review</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Verification Details Card -->
+                            <div class="col-md-6">
+                                <div class="p-3 rounded-4" style="background-color: #070a14; border: 1px solid var(--winarena-border); height: 100%;">
+                                    <h6 class="fw-bold text-white mb-3" style="font-size: 12px; text-transform: uppercase; color: var(--winarena-primary-hover) !important; letter-spacing: 0.5px;"><i class="fa-solid fa-circle-info me-2"></i> Verification Details</h6>
+                                    
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Verification Type</span>
+                                        <span class="fw-bold text-white small" id="reviewVerificationType"><i class="fa-solid fa-shield-halved text-muted me-1"></i> Fraud Review</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Submission Date</span>
+                                        <span class="fw-bold text-white small" id="reviewDetailsSubmissionDate">May 23, 2026 10:14 AM</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-muted small">Current Status</span>
+                                        <span class="badge px-2" id="reviewDetailsStatus" style="font-size: 10px; font-weight: 700; text-transform: uppercase; background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">Pending</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted small">Assigned To</span>
+                                        <span class="text-muted small" id="reviewDetailsAssigned"><i class="fa-regular fa-user me-1"></i> Unassigned</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents Card -->
+                        <div class="p-3 rounded-4 mb-4" style="background-color: #070a14; border: 1px solid var(--winarena-border);">
+                            <h6 class="fw-bold text-white mb-3" style="font-size: 12px; text-transform: uppercase; color: var(--winarena-primary-hover) !important; letter-spacing: 0.5px;"><i class="fa-regular fa-file-lines me-2"></i> Documents</h6>
+                            <div class="table-responsive">
+                                <table class="w-100" style="border-collapse: collapse;">
+                                    <thead>
+                                        <tr class="border-bottom border-secondary border-opacity-25">
+                                            <th class="text-muted small pb-2" style="font-size: 11px; font-weight: 700;">Document Type</th>
+                                            <th class="text-muted small pb-2" style="font-size: 11px; font-weight: 700;">Status</th>
+                                            <th class="text-muted small pb-2" style="font-size: 11px; font-weight: 700; text-align: center;">Preview</th>
+                                            <th class="text-muted small pb-2" style="font-size: 11px; font-weight: 700; text-align: right;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reviewDocumentsTbody">
+                                        <tr class="border-bottom border-secondary border-opacity-25">
+                                            <td class="py-3">
+                                                <div class="fw-bold text-white small">Identity Document</div>
+                                                <div class="text-muted" style="font-size: 11px;">ID Card (Front)</div>
+                                            </td>
+                                            <td><span class="badge bg-warning text-dark px-2" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Pending Review</span></td>
+                                            <td style="text-align: center;"><i class="fa-regular fa-eye text-muted cursor-pointer" style="font-size: 14px;"></i></td>
+                                            <td style="text-align: right;"><button class="btn-table-action" style="font-size: 11px; padding: 4px 10px;">Open Document</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Card -->
+                        <div class="p-3 rounded-4" style="background-color: #070a14; border: 1px solid var(--winarena-border);">
+                            <h6 class="fw-bold text-white mb-4" style="font-size: 12px; text-transform: uppercase; color: var(--winarena-primary-hover) !important; letter-spacing: 0.5px;"><i class="fa-regular fa-clock me-2"></i> Timeline</h6>
+                            
+                            <!-- Timeline steps horizontal layout (Icon-to-Icon Line) -->
+                            <div class="position-relative d-flex justify-content-between align-items-center px-5 mb-4" style="margin-top: 20px;">
+                                <!-- Connecting line behind the icons -->
+                                <div style="position: absolute; top: 16px; left: 60px; right: 60px; height: 2px; background-color: var(--winarena-border); z-index: 1;"></div>
+                                
+                                <!-- Step 1 -->
+                                <div class="text-center" style="position: relative; z-index: 2; width: 90px;" id="reviewStepSubmitted">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 32px; height: 32px; border: 2px solid var(--winarena-primary); background-color: var(--winarena-primary); color: #ffffff;">
+                                        <i class="fa-solid fa-arrow-up-from-bracket" style="font-size: 12px;"></i>
+                                    </div>
+                                    <div class="fw-bold text-white small" style="font-size: 11px;">Submitted</div>
+                                    <div class="text-muted" id="reviewStepSubmittedDate" style="font-size: 9px; line-height: 1.2;">May 23, 2026<br>10:14 AM</div>
+                                </div>
+                                
+                                <!-- Step 2 -->
+                                <div class="text-center text-muted" style="position: relative; z-index: 2; width: 90px;" id="reviewStepAssigned">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" id="reviewStepAssignedIcon" style="width: 32px; height: 32px; border: 2px solid var(--winarena-border); background-color: #070a14; color: var(--winarena-text-muted);">
+                                        <i class="fa-regular fa-user" style="font-size: 12px;"></i>
+                                    </div>
+                                    <div class="fw-bold small" style="font-size: 11px;">Assigned</div>
+                                    <div class="text-muted" id="reviewStepAssignedText" style="font-size: 9px; line-height: 1.2;">Not assigned</div>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div class="text-center text-muted" style="position: relative; z-index: 2; width: 90px;" id="reviewStepReviewed">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" id="reviewStepReviewedIcon" style="width: 32px; height: 32px; border: 2px solid var(--winarena-border); background-color: #070a14; color: var(--winarena-text-muted);">
+                                        <i class="fa-regular fa-circle-check" style="font-size: 12px;"></i>
+                                    </div>
+                                    <div class="fw-bold small" style="font-size: 11px;">Reviewed</div>
+                                    <div class="text-muted" id="reviewStepReviewedText" style="font-size: 9px; line-height: 1.2;">Pending</div>
+                                </div>
+
+                                <!-- Step 4 -->
+                                <div class="text-center text-muted" style="position: relative; z-index: 2; width: 90px;" id="reviewStepDecision">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" id="reviewStepDecisionIcon" style="width: 32px; height: 32px; border: 2px solid var(--winarena-border); background-color: #070a14; color: var(--winarena-text-muted);">
+                                        <i class="fa-solid fa-lock" style="font-size: 12px;"></i>
+                                    </div>
+                                    <div class="fw-bold small" style="font-size: 11px;">Decision</div>
+                                    <div class="text-muted" id="reviewStepDecisionText" style="font-size: 9px; line-height: 1.2;">Pending</div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="button" class="btn-timeline-assign" id="reviewBtnAssignCase" onclick="assignCurrentCase()"><i class="fa-solid fa-user-plus"></i> Assign Case</button>
+                                <div class="text-muted small mt-2" style="font-size: 11px;">Assign this case to start the review process.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (35% width) -->
+                    <div class="col-lg-4">
+                        <div class="p-3 rounded-4" style="background-color: #070a14; border: 1px solid var(--winarena-border); height: 100%;">
+                            <h6 class="fw-bold text-white mb-2" style="font-size: 14px;"><i class="fa-solid fa-bolt me-2" style="color: var(--winarena-primary-hover);"></i> Decision Panel</h6>
+                            <span class="text-muted small d-block mb-4" style="font-size: 12px;">Choose the appropriate action for this verification.</span>
+                            
+                            <!-- Decision options -->
+                            <div class="mb-3">
+                                <div class="fw-bold text-white mb-2" style="font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--winarena-primary-hover);">Verification Decision</div>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="decisionRadio" id="decRadio1" value="approved" checked>
+                                    <label class="form-check-label text-white small" for="decRadio1">Approve Verification</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="decisionRadio" id="decRadio2" value="rejected">
+                                    <label class="form-check-label text-white small" for="decRadio2">Reject Verification (Needs Reupload)</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="decisionRadio" id="decRadio3" value="escalated">
+                                    <label class="form-check-label text-white small" for="decRadio3">Escalate to Compliance</label>
+                                </div>
+                            </div>
+
+                            <!-- Account Status Decision -->
+                            <div class="mb-3 text-start">
+                                <label class="form-label fw-bold text-white mb-2" style="font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--winarena-primary-hover);">Account Status Action</label>
+                                <select id="reviewAccountStatusDecision" class="form-select bg-dark text-white border-secondary mb-2" style="font-size: 12px; border-radius: 8px;">
+                                    <option value="Reactivate Account" selected>Reactivate Account</option>
+                                    <option value="Keep Suspended">Keep Suspended</option>
+                                    <option value="Permanently Close Account">Permanently Close Account</option>
+                                </select>
+                            </div>
+
+                            <!-- Comments -->
+                            <div class="mb-4 text-start">
+                                <label class="form-label fw-bold text-white mb-2" style="font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--winarena-primary-hover);">Comments <span class="text-muted" style="font-weight: 500; text-transform: none;">(required)</span></label>
+                                <textarea class="form-control-custom w-100" id="reviewComments" style="background-color: #070a14; border: 1px solid var(--winarena-border); color: #ffffff; padding: 12px; border-radius: 8px; font-size: 13px; height: 100px; resize: none;" placeholder="Add comments about your decision..."></textarea>
+                            </div>
+
+                            <!-- Submit Decision Button -->
+                            <button type="button" class="btn text-white w-100 py-3 rounded-pill fw-bold text-uppercase" style="background-color: var(--winarena-primary); border: none; font-size: 12px; letter-spacing: 0.8px; box-shadow: 0 4px 15px rgba(118, 51, 239, 0.3);" onclick="submitCaseDecision()"><i class="fa-regular fa-circle-check me-1"></i> Submit Decision</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL (High Fidelity Overlay) -->
+    <div id="notificationsModal" class="vr-popup-overlay" style="display: none; background-color: rgba(7, 10, 20, 0.92); backdrop-filter: blur(5px); z-index: 1100; overflow-y: auto; padding: 40px 15px;">
+        <div class="container py-4 my-auto" style="max-width: 680px; width: 100%;">
+            <div class="card-login p-4 position-relative text-start" style="background-color: var(--winarena-card-bg); border: 1px solid var(--winarena-border); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.65);">
+                
+                <!-- Close Button -->
+                <button class="vr-close-btn" onclick="closeNotificationsModal()" style="top: 15px; right: 20px; font-size: 28px; background: none; border: none; color: var(--winarena-text-muted); cursor: pointer;">&times;</button>
+                
+                <!-- Modal Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4 pe-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(118, 51, 239, 0.15); display: flex; align-items: center; justify-content: center; color: var(--winarena-primary-hover);">
+                            <i class="fa-regular fa-bell" style="font-size: 16px;"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold text-white mb-0" style="font-size: 20px;">Notifications</h3>
+                            <p class="text-muted small mb-0" style="font-size: 11px;">Stay updated on pending case actions and alerts.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm text-muted" style="font-size: 11px; text-decoration: none;" onclick="markAllNotificationsAsRead()">
+                        <i class="fa-regular fa-circle-check me-1"></i> Mark all read
+                    </button>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="d-flex flex-column gap-3 mb-4" id="notificationsListContainer">
+                    <!-- Notification 1 -->
+                    <div class="p-3 rounded-3 position-relative" id="notif-item-1" style="background-color: #070a14; border: 1px solid var(--winarena-border); border-left: 3px solid var(--winarena-primary);">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge" style="background-color: rgba(118, 51, 239, 0.15); color: var(--winarena-primary-hover); font-size: 10px; font-weight: 700;">NEW CASE ASSIGNED</span>
+                            <span class="text-muted small" style="font-size: 11px;">10 min ago</span>
+                        </div>
+                        <div class="fw-bold text-white small mb-1">Case DV-1024 Assigned to You</div>
+                        <p class="text-muted small mb-2" style="font-size: 12px; line-height: 1.4;">
+                            Proactive KYC verification for account #80948 has been assigned to your review queue.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="small text-decoration-none fw-bold" style="color: var(--winarena-primary-hover); font-size: 11px;" onclick="closeNotificationsModal(); openReviewModal(); return false;">
+                                Review Case <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                            <button class="btn btn-sm p-0 text-muted" style="font-size: 11px;" onclick="dismissNotification('notif-item-1')">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notification 2 -->
+                    <div class="p-3 rounded-3 position-relative" id="notif-item-2" style="background-color: #070a14; border: 1px solid var(--winarena-border); border-left: 3px solid #ef4444;">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge" style="background-color: rgba(239, 68, 68, 0.15); color: #ef4444; font-size: 10px; font-weight: 700;">FRAUD ALERT</span>
+                            <span class="text-muted small" style="font-size: 11px;">45 min ago</span>
+                        </div>
+                        <div class="fw-bold text-white small mb-1">Suspicious Activity on Case DV-1023</div>
+                        <p class="text-muted small mb-2" style="font-size: 12px; line-height: 1.4;">
+                            Account #78125 was flagged for multiple mismatched IP geolocation attempts during KYC submission.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="small text-decoration-none fw-bold" style="color: #ef4444; font-size: 11px;" onclick="closeNotificationsModal(); openReviewModal(); return false;">
+                                View Alert <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                            <button class="btn btn-sm p-0 text-muted" style="font-size: 11px;" onclick="dismissNotification('notif-item-2')">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notification 3 -->
+                    <div class="p-3 rounded-3 position-relative" id="notif-item-3" style="background-color: #070a14; border: 1px solid var(--winarena-border); border-left: 3px solid #f59e0b;">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge" style="background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; font-size: 10px; font-weight: 700;">DOCUMENT RESUBMITTED</span>
+                            <span class="text-muted small" style="font-size: 11px;">2 hours ago</span>
+                        </div>
+                        <div class="fw-bold text-white small mb-1">Proof of Address Reuploaded</div>
+                        <p class="text-muted small mb-2" style="font-size: 12px; line-height: 1.4;">
+                            User for Case DV-1020 has submitted an updated utility bill responding to your previous rejection notice.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="small text-decoration-none fw-bold" style="color: #f59e0b; font-size: 11px;" onclick="closeNotificationsModal(); openReviewModal(); return false;">
+                                Check Document <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                            <button class="btn btn-sm p-0 text-muted" style="font-size: 11px;" onclick="dismissNotification('notif-item-3')">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="d-flex justify-content-between align-items-center pt-2">
+                    <span class="text-muted small" id="unreadNotifCountText" style="font-size: 11px;">3 unread notifications</span>
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill small" style="border-color: var(--winarena-border); color: var(--winarena-text-muted); font-size: 12px; font-weight: 600;" onclick="closeNotificationsModal()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/employee_avatar.png" alt="Employee Avatar" class="avatar-image">
+            </div>
+            <div class="username-container d-flex flex-column align-items-start" style="margin-left: 12px; gap: 1px;">
+                <span class="username-text" style="font-size: 14px; font-weight: 700; color: #ffffff; margin: 0;">Paola Castro</span>
+                <span class="text-muted" style="font-size: 11px; font-weight: 500; margin: 0;">@psarabia</span>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="dashboard.html" class="drawer-item"><i class="fa-solid fa-table-columns"></i> Verification Dashboard</a>
+            <a href="queue.html" class="drawer-item"><i class="fa-solid fa-list-check"></i> Verification Queue</a>
+            <a href="all-cases.html" class="drawer-item active"><i class="fa-solid fa-folder-open"></i> All Cases</a>
+            <a href="reports.html" class="drawer-item"><i class="fa-solid fa-chart-simple"></i> Reports</a>
+            <a href="settings_employee.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="activity_log.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Activity Log</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/all_cases.js"></script>
+</body>
+</html>

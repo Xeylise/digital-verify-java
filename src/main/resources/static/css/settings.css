@@ -1,0 +1,33 @@
+.settings-card {
+    background-color: var(--winarena-card-bg);
+    border: 1px solid var(--winarena-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.settings-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--winarena-primary);
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+    background-color: #1c2333;
+    border-color: var(--winarena-border);
+    cursor: pointer;
+    transition: background-position .15s ease-in-out;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--winarena-primary) !important;
+    border-color: var(--winarena-primary) !important;
+}

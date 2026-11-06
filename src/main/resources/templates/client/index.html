@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinArena - Esports Betting Platform</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+</head>
+<body style="background-color: var(--winarena-bg); color: var(--winarena-text);">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg py-3" style="background-color: rgba(4, 6, 11, 0.95); border-bottom: 1px solid #141a29; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px);">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <div style="font-weight: 900; color: #ffffff; background: linear-gradient(135deg, var(--winarena-primary), var(--winarena-accent)); padding: 4px 10px; border-radius: 6px; font-size: 20px; letter-spacing: -1.5px; line-height: 1.2;">W</div>
+                <div>
+                    <div class="fw-bold text-white lh-1" style="font-size: 16px; letter-spacing: 0.5px;">WINARENA</div>
+                    <div class="text-uppercase" style="font-size: 8px; color: var(--winarena-primary); letter-spacing: 0.8px; font-weight: 800;">Esports Betting</div>
+                </div>
+            </a>
+            
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#winarenaNav" style="outline: none; box-shadow: none;">
+                <i class="fa-solid fa-bars fs-4"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="winarenaNav">
+                <div class="navbar-nav mx-auto gap-2">
+                    <a class="nav-link-winarena active" href="#inicio">Home</a>
+                    <a class="nav-link-winarena" href="#esports">Esports</a>
+                    <a class="nav-link-winarena" href="#live">Live Betting</a>
+                    <a class="nav-link-winarena" href="#promotions">Promotions</a>
+                    <a class="nav-link-winarena" href="#news">News</a>
+                    <a class="nav-link-winarena" href="#help">Help</a>
+                </div>
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <span class="text-muted small cursor-pointer" style="font-weight: 600;"><i class="fa-solid fa-globe"></i> EN <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></span>
+                    <button class="btn btn-link text-white text-decoration-none px-3" onclick="openModal('login')" style="font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px;">Login</button>
+                    <button class="landing-btn-primary rounded-pill px-4 py-2" onclick="openModal('register')" style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px;">Join Now</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-winarena">
+        <div class="container">
+            <div class="winarena-hero-grid">
+                <!-- Left Hero Text -->
+                <div>
+                    <h1 style="font-size: 54px; font-weight: 800; color: #ffffff; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.5px;">
+                        BET ON THE ACTION.<br>
+                        <span style="color: var(--winarena-primary);">WIN BIG.</span>
+                    </h1>
+                    <p style="color: var(--winarena-text-muted); font-size: 16px; margin-bottom: 35px; max-width: 480px; line-height: 1.6;">
+                        The ultimate esports betting experience. Fast, secure, and made for real fans.
+                    </p>
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                        <button class="landing-btn-primary rounded-pill px-4 py-3" onclick="openModal('register')">Join Now <i class="fa-solid fa-arrow-right ms-1"></i></button>
+                        <a href="#esports" class="landing-btn-outline rounded-pill px-4 py-3 text-decoration-none d-flex align-items-center gap-2" style="margin-left: 0;">
+                            <i class="fa-solid fa-tower-broadcast text-danger"></i> View Live Matches
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Live Now Widget -->
+                <div class="live-now-widget">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span style="color: #ffffff; font-weight: 700; font-size: 12px; text-transform: uppercase; display: flex; align-items: center; gap: 6px;">
+                            <span style="width: 6px; height: 6px; border-radius: 50%; background-color: #ef4444; display: inline-block;"></span>
+                            Live Now
+                        </span>
+                        <span class="text-muted" style="font-size: 11px;">12 Events</span>
+                    </div>
+
+                    <!-- Row 1 -->
+                    <div class="live-event-row">
+                        <div class="small fw-bold text-white">G2 Esports <span class="text-muted" style="font-weight: 400; font-size: 11px;">vs</span> FaZe Clan</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">1.65</span>
+                            <span class="live-pill">Live</span>
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">2.25</span>
+                        </div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="live-event-row">
+                        <div class="small fw-bold text-white">Team Liquid <span class="text-muted" style="font-weight: 400; font-size: 11px;">vs</span> Natus Vincere</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">1.80</span>
+                            <span class="live-pill">Live</span>
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">1.95</span>
+                        </div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="live-event-row">
+                        <div class="small fw-bold text-white">Cloud9 <span class="text-muted" style="font-weight: 400; font-size: 11px;">vs</span> Vitality</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">2.10</span>
+                            <span class="live-pill">Live</span>
+                            <span class="text-white" style="font-size: 11px; font-weight: 700;">1.70</span>
+                        </div>
+                    </div>
+
+                    <a href="#esports" class="text-decoration-none text-center d-block mt-3" style="color: var(--winarena-primary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                        View All Live Events <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Bar -->
+    <section class="container py-4 border-bottom" style="border-color: #141a29;">
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <div class="fw-bold text-white" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Fast Payouts</div>
+                        <div class="text-muted" style="font-size: 11px;">Get your winnings fast with secure payouts.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <div class="fw-bold text-white" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Secure Platform</div>
+                        <div class="text-muted" style="font-size: 11px;">Top-tier security to keep data & funds safe.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-award"></i></div>
+                    <div>
+                        <div class="fw-bold text-white" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Best Odds</div>
+                        <div class="text-muted" style="font-size: 11px;">Competitive odds across all major titles.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <div class="fw-bold text-white" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">24/7 Support</div>
+                        <div class="text-muted" style="font-size: 11px;">Our support team is here for you, anytime.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Esports Grid -->
+    <section id="esports" class="container py-5">
+        <h2 style="font-size: 18px; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 25px;">Popular Esports</h2>
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">Counter Strike 2</div>
+                    <div class="esports-pill-count">124 Events</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">League of Legends</div>
+                    <div class="esports-pill-count">89 Events</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">Dota 2</div>
+                    <div class="esports-pill-count">67 Events</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">Valorant</div>
+                    <div class="esports-pill-count">54 Events</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">Call of Duty</div>
+                    <div class="esports-pill-count">42 Events</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="esports-pill-card">
+                    <div class="esports-pill-title">Rocket League</div>
+                    <div class="esports-pill-count">31 Events</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Logos Footer -->
+    <footer class="container py-5 border-top" style="border-color: #141a29;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-4">
+            <div class="d-flex align-items-center gap-4 flex-wrap opacity-50">
+                <span class="fw-bold text-white" style="font-size: 20px;">VISA</span>
+                <span class="fw-bold text-white" style="font-size: 16px;">mastercard</span>
+                <span class="fw-bold text-white" style="font-size: 18px;">Trustly</span>
+                <span class="fw-bold text-white" style="font-size: 18px;">Skrill</span>
+                <span class="fw-bold text-white" style="font-size: 18px;">NETELLER</span>
+                <span class="fw-bold text-white" style="font-size: 18px;">PayPal</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span style="border: 1px solid #1f2a3f; border-radius: 50%; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #8f9cae;">18+</span>
+                <span class="text-muted" style="font-size: 11px;">Play Responsibly | GambleAware</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL OVERLAYS (Standardized to Purple WinArena color scheme) -->
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModalOverlay" class="vr-popup-overlay" onclick="if(event.target === this) { event.stopPropagation(); event.preventDefault(); }" th:style="${loginError != null} ? 'display: flex;' : 'display: none;'">
+        <div class="login-container animated-login-card" style="max-width: 440px; width: 100%;">
+            <div class="card-login position-relative">
+                
+                <!-- Close Button -->
+                <button class="vr-close-btn" onclick="closeModals()">&times;</button>
+                
+                <!-- Logo Header -->
+                <div class="card-brand-header">
+                    <div class="logo-container">
+                        <div style="font-weight: 900; color: #ffffff; background: linear-gradient(135deg, var(--winarena-primary), var(--winarena-accent)); padding: 4px 10px; border-radius: 6px; font-size: 18px; letter-spacing: -1.5px;">W</div>
+                        <div class="logo-text" style="font-size: 20px;">WINARENA</div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button class="tab-btn active">Log in</button>
+                    <div class="tab-divider-text">with</div>
+                    <button class="tab-btn" onclick="openModal('register')">Join</button>
+                </div>
+
+                <!-- Social Logins -->
+                <div class="social-container" style="gap: 5px;">
+                    <button class="social-icon-btn-raw" title="Twitch" type="button" onclick="window.location.href='home.html'">
+                        <img src="/img/twitch.svg" alt="Twitch" width="60" height="60">
+                    </button>
+                    <button class="social-icon-btn-raw" title="Steam" type="button" onclick="window.location.href='home.html'">
+                        <img src="/img/steam.svg" alt="Steam" width="60" height="60">
+                    </button>
+                    <button class="social-icon-btn-raw" title="Google" type="button" onclick="window.location.href='home.html'">
+                        <img src="/img/gmail.svg" alt="Google" width="60" height="60">
+                    </button>
+                    <button class="social-icon-btn-raw" title="Telegram" type="button" onclick="window.location.href='home.html'">
+                        <img src="/img/telegram.svg" alt="Telegram" width="60" height="60">
+                    </button>
+                </div>
+
+                <!-- Separator -->
+                <div class="or-separator">or</div>
+
+                <!-- Form -->
+                <form action="/login" method="POST" id="loginForm">
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Email:</div>
+                        <div class="input-group-custom">
+                            <input type="email" name="email" class="form-control-custom" id="email" required placeholder="example@email.com" th:value="${loginRequest != null ? loginRequest.email : ''}">
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Password:</div>
+                        <div class="input-group-custom">
+                            <input type="password" name="password" class="form-control-custom" id="password" required placeholder="••••••••">
+                            <button type="button" class="password-toggle" id="togglePasswordBtn">
+                                <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Card -->
+                    <div class="error-card" id="errorCard" th:style="${loginError != null} ? 'display: block; margin-bottom: 15px;' : 'display: none; margin-bottom: 15px;'">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="error-card-icon" style="color: #ef4444;">
+                                <i class="fa-regular fa-circle-xmark fs-5"></i>
+                            </div>
+                            <div class="error-card-content text-start">
+                                <div class="error-card-title">Authentication error</div>
+                                <div class="error-card-subtitle" th:text="${loginError != null ? loginError : 'Login Failed - your email or password is incorrect'}">Login Failed - your email or password is incorrect</div>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container mt-3">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Forgot Password -->
+                    <a href="#" class="forgot-password-link">Forgot your password?</a>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-login-submit">Log in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div id="registerModalOverlay" class="vr-popup-overlay" onclick="if(event.target === this) { event.stopPropagation(); event.preventDefault(); }" style="display: none;">
+        <div class="login-container animated-login-card" style="max-width: 440px; width: 100%;">
+            <div class="card-login position-relative">
+                
+                <!-- Close Button -->
+                <button class="vr-close-btn" onclick="closeModals()">&times;</button>
+                
+                <!-- Logo Header -->
+                <div class="card-brand-header">
+                    <div class="logo-container">
+                        <div style="font-weight: 900; color: #ffffff; background: linear-gradient(135deg, var(--winarena-primary), var(--winarena-accent)); padding: 4px 10px; border-radius: 6px; font-size: 18px; letter-spacing: -1.5px;">W</div>
+                        <div class="logo-text" style="font-size: 20px;">WINARENA</div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button class="tab-btn" onclick="openModal('login')">Log in</button>
+                    <div class="tab-divider-text">with</div>
+                    <button class="tab-btn active">Join</button>
+                </div>
+
+                <!-- Form -->
+                <form action="/register" method="POST">
+                    <div class="alert alert-danger py-2 mb-3" style="font-size: 13px; border-radius: 8px;" th:if="${error}" th:text="${error}"></div>
+
+                    <!-- Full Name Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Full Name:</div>
+                        <div class="input-group-custom">
+                            <input type="text" name="fullName" class="form-control-custom" id="reg_name" required placeholder="Juan Perez">
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Email:</div>
+                        <div class="input-group-custom">
+                            <input type="email" name="email" class="form-control-custom" id="reg_email" required placeholder="example@email.com">
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Password:</div>
+                        <div class="input-group-custom">
+                            <input type="password" name="password" class="form-control-custom" id="reg_password" required placeholder="Enter password">
+                            <button type="button" class="password-toggle" id="toggleRegPasswordBtn">
+                                <i class="fa-solid fa-eye" id="regEyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Phone:</div>
+                        <div class="input-group-custom">
+                            <input type="tel" name="phone" class="form-control-custom" id="reg_phone" placeholder="+57 300 000 0000">
+                        </div>
+                    </div>
+
+                    <!-- Date of Birth Field -->
+                    <div class="mb-3">
+                        <div class="form-label">Date of Birth:</div>
+                        <div class="input-group-custom">
+                            <input type="text" class="form-control-custom" id="dob" required placeholder="YYYY-MM-DD" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+                            <div class="calendar-icon-btn">
+                                <i class="fa-regular fa-calendar-days"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Age Checkbox -->
+                    <div class="form-check mb-4 mt-2">
+                        <input class="form-check-input" type="checkbox" id="ageCheck" required>
+                        <label class="form-check-label text-muted small" for="ageCheck" style="cursor: pointer; user-select: none;">
+                            I'm over 18 years old
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-login-submit">Join</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLIENT LOGIN SUCCESS MODAL -->
+    <div id="clientLoginSuccessModal" class="vr-popup-overlay" style="display: none; z-index: 1050; background-color: rgba(4, 6, 11, 0.88); backdrop-filter: blur(8px);">
+        <div class="login-container animated-login-card text-center" style="max-width: 400px; width: 100%;">
+            <div class="card-login p-4">
+                <div class="mb-3">
+                    <i class="fa-solid fa-circle-check" style="font-size: 56px; color: #10b981;"></i>
+                </div>
+                <h4 class="fw-bold text-white mb-2">¡Inicio de Sesión Exitoso!</h4>
+                <p class="text-muted small mb-4" id="clientSuccessWelcomeText">Bienvenido de nuevo a WinArena. Ingresando a tu panel de control...</p>
+                <div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts for Modals & Interactive logic -->
+    <script src="/js/index.js"></script>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

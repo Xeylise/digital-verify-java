@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Verify - Settings</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/queue.css" rel="stylesheet">
+    <link href="/css/settings_employee.css" rel="stylesheet">
+</head>
+<body class="employee-body" style="background-color: var(--winarena-bg); color: var(--winarena-text); overflow: hidden; height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Top Navbar -->
+    <div class="backoffice-top-navbar">
+        <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Menu Toggle Button (Hamburger) -->
+            <button type="button" class="btn border-0 text-white d-lg-none p-1 me-1" onclick="toggleDrawer()" style="background: none; line-height: 1;">
+                <i class="fa-solid fa-bars fs-5"></i>
+            </button>
+            <img src="/img/logo.svg" alt="Digital Verify" width="24" height="32">
+            <span class="logo-text fw-bold text-white fs-5" style="letter-spacing: 0.5px;">Digital Verify</span>
+            <span class="badge ms-2" style="background-color: var(--winarena-bg-purple-dark); color: var(--winarena-primary-hover); font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 8px;">Backoffice</span>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+            <!-- Notification Bell -->
+            <button type="button" class="position-relative cursor-pointer text-muted fs-5 border-0 bg-transparent p-0" title="Notifications" onclick="openNotificationsModal()">
+                <i class="fa-regular fa-bell"></i>
+                <span id="headerBellBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px; padding: 3px 6px;">3</span>
+            </button>
+
+            <hr style="width: 1px; height: 24px; background-color: var(--winarena-border); border: none; margin: 0 10px;">
+
+            <!-- User Dropdown Details -->
+            <div class="position-relative" id="userProfileDropdownContainer">
+                <div class="d-flex align-items-center gap-2 cursor-pointer" onclick="toggleUserDropdown(event)">
+                    <img src="/img/employee_avatar.png" alt="Paola Castro" class="avatar-image" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--winarena-primary);">
+                    <div class="d-flex flex-column align-items-start text-start d-none d-sm-block">
+                        <span class="text-white fw-bold" style="font-size: 13px; line-height: 1.2;" th:text="${employee != null ? employee.fullName : 'Paola Castro'}">Paola Castro</span>
+                        <span class="text-muted" style="font-size: 11px; line-height: 1.2;" th:text="${employee != null ? employee.role : 'Internal User'}">Internal User</span>
+                    </div>
+                    <span class="text-muted small ms-1"><i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></span>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div id="userProfileDropdown" class="user-dropdown-menu">
+                    <div class="px-3 py-2 border-bottom border-secondary border-opacity-25 mb-1">
+                        <span class="text-white fw-bold d-block small" th:text="${employee != null ? employee.fullName : 'Paola Castro'}">Paola Castro</span>
+                        <span class="text-muted" style="font-size: 11px;" th:text="${employee != null ? employee.email : 'emp90210@verify.com'}">@psarabia • Backoffice</span>
+                    </div>
+                    <a href="/employee/logout" class="user-dropdown-item danger-item">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Main Body wrapper -->
+    <div class="app-wrapper" style="flex: 1; height: calc(100vh - 57px); overflow: hidden;">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar" style="background-color: #070a14; border-right: 1px solid var(--winarena-border);">
+            <div class="sidebar-nav pt-4">
+                <a href="dashboard.html" class="nav-item-link">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Verification Dashboard</span>
+                </a>
+                <a href="queue.html" class="nav-item-link">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Verification Queue</span>
+                </a>
+                <a href="all-cases.html" class="nav-item-link">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>All Cases</span>
+                </a>
+                <a href="reports.html" class="nav-item-link">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="settings_employee.html" class="nav-item-link active">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="activity_log.html" class="nav-item-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Activity Log</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="padding: 30px; overflow-y: auto; height: 100%;">
+            
+            <!-- Settings Content Container -->
+            <div class="container-fluid p-0" style="max-width: 1100px; margin: 0 auto;">
+                
+                <!-- Page Title Row -->
+                <div class="text-start mb-4">
+                    <h2 class="fw-extrabold text-white mb-1" style="font-size: 26px;">Settings</h2>
+                    <p class="text-muted small mb-0">Manage your account preferences, security settings, and system notifications.</p>
+                </div>
+
+                <div th:if="${successMessage}" class="alert alert-success py-2 mb-3" style="font-size: 13px; border-radius: 8px;" th:text="${successMessage}"></div>
+
+                <!-- Settings Form -->
+                <form action="/employee/settings/update" method="POST" id="employeeSettingsForm">
+                <div class="row g-4 text-start">
+                    
+                    <!-- Left Column: User Profile & Security -->
+                    <div class="col-lg-7 d-flex flex-column gap-4">
+                        
+                        <!-- USER PROFILE CARD -->
+                        <div class="settings-emp-card">
+                            <div class="settings-emp-card-header">
+                                <i class="fa-regular fa-user"></i> USER PROFILE
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="settings-emp-label">Full Name</label>
+                                    <div class="settings-input-group">
+                                        <i class="fa-regular fa-user settings-input-icon"></i>
+                                        <input type="text" class="settings-emp-input has-icon" name="fullName" th:value="${employee != null ? employee.fullName : 'Paola Castro'}" value="Paola Castro" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="settings-emp-label">Email Address</label>
+                                    <div class="settings-input-group">
+                                        <i class="fa-regular fa-envelope settings-input-icon"></i>
+                                        <input type="email" class="settings-emp-input has-icon" name="email" th:value="${employee != null ? employee.email : 'paola.castro@digitalverify.app'}" value="paola.castro@digitalverify.app" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="settings-emp-label">Role & Permissions</label>
+                                    <div class="settings-input-group">
+                                        <i class="fa-solid fa-shield-halved settings-input-icon"></i>
+                                        <input type="text" class="settings-emp-input has-icon" th:value="${employee != null ? employee.role + ' (Backoffice Access)' : 'Lead Auditor (Backoffice Access)'}" value="Lead Auditor (Backoffice Access)" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="settings-emp-label">Country</label>
+                                    <div class="settings-input-group">
+                                        <i class="fa-solid fa-earth-americas settings-input-icon"></i>
+                                        <input type="text" class="settings-emp-input has-icon" th:value="${employee != null ? employee.country : 'CO'}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECURITY CARD (Password Management only - 2FA removed for employees) -->
+                        <div class="settings-emp-card">
+                            <div class="settings-emp-card-header">
+                                <i class="fa-solid fa-lock"></i> SECURITY
+                            </div>
+
+                            <div>
+                                <h6 class="text-white fw-bold mb-3" style="font-size: 13px;">Password Management</h6>
+                                
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="settings-emp-label">Current Password</label>
+                                        <div class="settings-input-group">
+                                            <i class="fa-solid fa-key settings-input-icon"></i>
+                                            <input type="password" id="currentPasswordInput" class="settings-emp-input has-icon" placeholder="••••••••">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="settings-emp-label">New Password</label>
+                                        <div class="settings-input-group">
+                                            <i class="fa-solid fa-shield-halved settings-input-icon"></i>
+                                            <input type="password" id="newPasswordInput" class="settings-emp-input has-icon" placeholder="New secure password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-end pt-1">
+                                    <button type="button" class="btn-update-password" onclick="updatePassword()">
+                                        <i class="fa-solid fa-arrow-up-from-bracket"></i> UPDATE PASSWORD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: System Preferences & Notifications -->
+                    <div class="col-lg-5 d-flex flex-column gap-4">
+                        
+                        <!-- SYSTEM PREFERENCES CARD -->
+                        <div class="settings-emp-card">
+                            <div class="settings-emp-card-header">
+                                <i class="fa-solid fa-sliders"></i> SYSTEM PREFERENCES
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="settings-emp-label">Language</label>
+                                <div class="settings-input-group">
+                                    <i class="fa-solid fa-globe settings-input-icon"></i>
+                                    <select name="language" class="settings-emp-select has-icon">
+                                        <option value="en" th:selected="${employee == null or employee.language == 'en'}">English (US)</option>
+                                        <option value="es" th:selected="${employee != null and employee.language == 'es'}">Español (ES)</option>
+                                        <option value="pt" th:selected="${employee != null and employee.language == 'pt'}">Português (BR)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="settings-emp-label">Timezone</label>
+                                <div class="settings-input-group">
+                                    <i class="fa-regular fa-clock settings-input-icon"></i>
+                                    <select name="timezone" class="settings-emp-select has-icon">
+                                        <option value="utc-8" th:selected="${employee != null and employee.timezone == 'utc-8'}">(UTC-08:00) Pacific Time</option>
+                                        <option value="utc-5" th:selected="${employee == null or employee.timezone == 'utc-5'}">(UTC-05:00) Eastern / Colombia</option>
+                                        <option value="utc-4" th:selected="${employee != null and employee.timezone == 'utc-4'}">(UTC-04:00) Atlantic Time</option>
+                                        <option value="utc-3" th:selected="${employee != null and employee.timezone == 'utc-3'}">(UTC-03:00) Argentina / Brazil</option>
+                                        <option value="utc+0" th:selected="${employee != null and employee.timezone == 'utc+0'}">(UTC+00:00) London / UTC</option>
+                                        <option value="utc+1" th:selected="${employee != null and employee.timezone == 'utc+1'}">(UTC+01:00) Madrid / Paris</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NOTIFICATIONS CARD (In-app alerts for queue changes only, email & security alerts removed) -->
+                        <div class="settings-emp-card">
+                            <div class="settings-emp-card-header">
+                                <i class="fa-regular fa-bell"></i> NOTIFICATIONS
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <div>
+                                    <div class="text-white fw-bold" style="font-size: 13.5px;">Queue Alert Notifications</div>
+                                    <div class="text-muted" style="font-size: 12px; margin-top: 2px;">In-app alerts for queue changes</div>
+                                </div>
+                                <div class="form-check form-switch m-0">
+                                    <input class="form-check-input" type="checkbox" name="queueAlertsEnabled" value="true" role="switch" id="systemNotifSwitch" th:checked="${employee == null or employee.queueAlertsEnabled}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Save Changes Button at bottom right -->
+                <div class="d-flex justify-content-end mt-4 mb-3">
+                    <button type="submit" class="btn-save-settings">
+                        <i class="fa-regular fa-floppy-disk"></i> SAVE CHANGES
+                    </button>
+                </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS MODAL (Overlay) -->
+    <div id="notificationsModal" class="vr-popup-overlay" style="display: none; background-color: rgba(7, 10, 20, 0.92); backdrop-filter: blur(5px); z-index: 1100; overflow-y: auto; padding: 40px 15px;">
+        <div class="container py-4 my-auto" style="max-width: 680px; width: 100%;">
+            <div class="card-login p-4 position-relative text-start" style="background-color: var(--winarena-card-bg); border: 1px solid var(--winarena-border); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.65);">
+                
+                <!-- Close Button -->
+                <button class="vr-close-btn" onclick="closeNotificationsModal()" style="top: 15px; right: 20px; font-size: 28px; background: none; border: none; color: var(--winarena-text-muted); cursor: pointer;">&times;</button>
+                
+                <!-- Modal Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4 pe-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(118, 51, 239, 0.15); display: flex; align-items: center; justify-content: center; color: var(--winarena-primary-hover);">
+                            <i class="fa-regular fa-bell" style="font-size: 16px;"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold text-white mb-0" style="font-size: 20px;">Notifications</h3>
+                            <p class="text-muted small mb-0" style="font-size: 11px;">Stay updated on pending case actions and alerts.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm text-muted" style="font-size: 11px; text-decoration: none;" onclick="markAllNotificationsAsRead()">
+                        <i class="fa-regular fa-circle-check me-1"></i> Mark all read
+                    </button>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="d-flex flex-column gap-3 mb-4" id="notificationsListContainer">
+                    <div class="p-3 rounded-3 position-relative" id="notif-item-1" style="background-color: #070a14; border: 1px solid var(--winarena-border); border-left: 3px solid var(--winarena-primary);">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <span class="badge" style="background-color: rgba(118, 51, 239, 0.15); color: var(--winarena-primary-hover); font-size: 10px; font-weight: 700;">NEW CASE ASSIGNED</span>
+                            <span class="text-muted small" style="font-size: 11px;">10 min ago</span>
+                        </div>
+                        <div class="fw-bold text-white small mb-1">Case DV-1024 Assigned to You</div>
+                        <p class="text-muted small mb-2" style="font-size: 12px; line-height: 1.4;">
+                            Proactive KYC verification for account #80948 has been assigned to your review queue.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="queue.html" class="small text-decoration-none fw-bold" style="color: var(--winarena-primary-hover); font-size: 11px;">
+                                View Queue <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                            <button class="btn btn-sm p-0 text-muted" style="font-size: 11px;" onclick="dismissNotification('notif-item-1')">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="d-flex justify-content-between align-items-center pt-2">
+                    <span class="text-muted small" id="unreadNotifCountText" style="font-size: 11px;">1 unread notification</span>
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill small" style="border-color: var(--winarena-border); color: var(--winarena-text-muted); font-size: 12px; font-weight: 600;" onclick="closeNotificationsModal()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/employee_avatar.png" alt="Employee Avatar" class="avatar-image">
+            </div>
+            <div class="username-container d-flex flex-column align-items-start" style="margin-left: 12px; gap: 1px;">
+                <span class="username-text" style="font-size: 14px; font-weight: 700; color: #ffffff; margin: 0;">Paola Castro</span>
+                <span class="text-muted" style="font-size: 11px; font-weight: 500; margin: 0;">@psarabia</span>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="dashboard.html" class="drawer-item"><i class="fa-solid fa-table-columns"></i> Verification Dashboard</a>
+            <a href="queue.html" class="drawer-item"><i class="fa-solid fa-list-check"></i> Verification Queue</a>
+            <a href="all-cases.html" class="drawer-item"><i class="fa-solid fa-folder-open"></i> All Cases</a>
+            <a href="reports.html" class="drawer-item"><i class="fa-solid fa-chart-simple"></i> Reports</a>
+            <a href="settings_employee.html" class="drawer-item active"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="activity_log.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Activity Log</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/settings_employee.js"></script>
+</body>
+</html>

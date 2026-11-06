@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinArena - Bet History</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/my_bets.css" rel="stylesheet">
+</head>
+<body style="background-color: var(--winarena-bg); color: var(--winarena-text);">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container">
+                        <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                        <i class="fa-solid fa-chevron-right username-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav">
+                    <a href="home.html" class="nav-item-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="profile.html" class="nav-item-link">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="settings.html" class="nav-item-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="notifications.html" class="nav-item-link">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="nav-badge">1</span>
+                    </a>
+                    <a href="my_bets.html" class="nav-item-link active">
+                        <i class="fa-solid fa-dice"></i>
+                        <span>My bets</span>
+                    </a>
+                    <a href="start_kyc.html" class="nav-item-link">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <span>Start KYC</span>
+                    </a>
+                    <a href="kyc_status_review.html" class="nav-item-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Verification status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            
+            <!-- Mobile Header -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <div class="grid-menu-icon" onclick="toggleDrawer()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid var(--winarena-primary); background: none;" onclick="toggleDrawer()">
+                    <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- Bet History Content -->
+            <div class="container-fluid p-0" style="max-width: 1050px; margin: 0 auto;">
+                
+                <!-- Title Section -->
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <span style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-solid fa-ticket"></i></span>
+                    <h3 class="fw-bold text-white mb-0">Bet History</h3>
+                </div>
+                <p class="text-muted small mb-4">View your past bets and their results.</p>
+
+                <!-- Filters & Export Bar -->
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted small" style="font-size: 11px; text-transform: uppercase;">Date Range</span>
+                            <select class="bet-filter-select">
+                                <option>Last 30 Days</option>
+                                <option>Last 7 Days</option>
+                                <option>This Month</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted small" style="font-size: 11px; text-transform: uppercase;">Status</span>
+                            <select class="bet-filter-select">
+                                <option>All</option>
+                                <option>Won</option>
+                                <option>Lost</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="text-muted small" style="font-size: 11px; text-transform: uppercase;">Game</span>
+                            <select class="bet-filter-select">
+                                <option>All Games</option>
+                                <option>CS2</option>
+                                <option>Dota 2</option>
+                                <option>LoL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="export-history-btn" onclick="alert('Export function under development.');">
+                        <i class="fa-solid fa-download"></i> EXPORT HISTORY
+                    </button>
+                </div>
+
+                <!-- Bets Table Container -->
+                <div class="bet-table-container">
+                    <table class="bet-history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Event</th>
+                                <th>Selection</th>
+                                <th>Odds</th>
+                                <th>Stake</th>
+                                <th>Payout</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="b : ${bets}">
+                                <td>
+                                    <div class="fw-bold text-white" th:text="${#temporals.format(b.placedAt, 'MMM dd, yyyy')}">May 20, 2026</div>
+                                    <div class="text-muted" style="font-size: 11px;" th:text="${#temporals.format(b.placedAt, 'hh:mm a')}">10:45 PM</div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="text-muted"><i class="fa-solid fa-gamepad"></i></span>
+                                        <div>
+                                            <div class="fw-bold text-white" th:text="${b.eventName}">Real Madrid vs Manchester City</div>
+                                            <div class="text-muted" style="font-size: 11px;" th:text="${b.betReference}">BET-89421</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-white" th:text="${b.selection}">Real Madrid (Win)</div>
+                                    <div class="text-muted" style="font-size: 11px;">Match Winner</div>
+                                </td>
+                                <td class="fw-bold text-white" th:text="${b.odds}">2.45</td>
+                                <td class="fw-bold text-white" th:text="'$' + ${b.stake}">$50.00</td>
+                                <td>
+                                    <span class="fw-bold" style="color: #10b981;" th:text="'$' + ${b.payout}">$122.50</span>
+                                    <span class="ms-1" style="color: #10b981; font-size: 11px;"><i class="fa-solid fa-coins"></i></span>
+                                </td>
+                                <td>
+                                    <span th:class="${b.status == 'WON'} ? 'bet-status-won' : (${b.status == 'LOST'} ? 'bet-status-lost' : 'badge bg-warning')">
+                                        <span class="dot-green" th:if="${b.status == 'WON'}"></span>
+                                        <span class="dot-red" th:if="${b.status == 'LOST'}"></span>
+                                        <span th:text="${b.status}">WON</span>
+                                    </span>
+                                </td>
+                                <td class="text-muted"><i class="fa-solid fa-chevron-right"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Footer Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="#" class="bet-page-item"><i class="fa-solid fa-chevron-left"></i></a>
+                        <a href="#" class="bet-page-item active">1</a>
+                        <a href="#" class="bet-page-item">2</a>
+                        <a href="#" class="bet-page-item">3</a>
+                        <a href="#" class="bet-page-item">4</a>
+                        <a href="#" class="bet-page-item">5</a>
+                        <span class="text-muted mx-1">...</span>
+                        <a href="#" class="bet-page-item">10</a>
+                        <a href="#" class="bet-page-item"><i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                    <span class="text-muted small">Showing 1 to 5 of 67 bets</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="home.html" class="drawer-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="profile.html" class="drawer-item"><i class="fa-regular fa-user"></i> Profile</a>
+            <a href="settings.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="notifications.html" class="drawer-item"><i class="fa-regular fa-bell"></i> Notifications <span class="nav-badge">1</span></a>
+            <a href="my_bets.html" class="drawer-item active"><i class="fa-solid fa-dice"></i> My bets</a>
+            <a href="start_kyc.html" class="drawer-item"><i class="fa-regular fa-circle-check"></i> Start KYC</a>
+            <a href="kyc_status_review.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Verification status</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

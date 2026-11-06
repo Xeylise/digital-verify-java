@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinArena - Profile</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/profile.css" rel="stylesheet">
+</head>
+<body style="background-color: var(--winarena-bg); color: var(--winarena-text);">
+
+    <div class="app-wrapper">
+        
+        <!-- Sidebar Menu (Desktop/PC View) -->
+        <div class="sidebar">
+            <div>
+                <!-- User Profile Header -->
+                <div class="sidebar-user">
+                    <div class="avatar-circle">
+                        <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                    </div>
+                    <div class="username-container">
+                        <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                        <i class="fa-solid fa-chevron-right username-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <div class="sidebar-nav">
+                    <a href="home.html" class="nav-item-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="profile.html" class="nav-item-link active">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="settings.html" class="nav-item-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="notifications.html" class="nav-item-link">
+                        <i class="fa-regular fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="nav-badge">1</span>
+                    </a>
+                    <a href="my_bets.html" class="nav-item-link">
+                        <i class="fa-solid fa-dice"></i>
+                        <span>My bets</span>
+                    </a>
+                    <a href="start_kyc.html" class="nav-item-link">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <span>Start KYC</span>
+                    </a>
+                    <a href="kyc_status_review.html" class="nav-item-link">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Verification status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a href="/logout" class="nav-item-link logout-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            
+            <!-- Mobile Header -->
+            <div class="mobile-header d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <div class="grid-menu-icon" onclick="toggleDrawer()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="avatar-circle" style="width: 40px; height: 40px; border: 1.5px solid var(--winarena-primary); background: none;" onclick="toggleDrawer()">
+                    <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="container-fluid p-0" style="max-width: 900px; margin: 0 auto;">
+                
+                <!-- Heading -->
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <span style="font-size: 24px; color: var(--winarena-primary);"><i class="fa-regular fa-user"></i></span>
+                    <h3 class="fw-bold text-white mb-0">Profile</h3>
+                </div>
+                <p class="text-muted small mb-4">Manage your account settings and preferences.</p>
+
+                <!-- Profile Header Details Card -->
+                <div class="profile-header-card" th:if="${user != null}">
+                    <div class="d-flex align-items-center gap-4 flex-wrap">
+                        <div class="profile-avatar-wrapper">
+                            <img src="/img/user_avatar.jpg" alt="User Avatar" class="profile-avatar-img">
+                            <div class="avatar-edit-btn" onclick="alert('Change avatar function coming soon.');"><i class="fa-solid fa-pencil"></i></div>
+                        </div>
+                        <div>
+                            <span class="text-uppercase" style="font-size: 10px; color: var(--winarena-primary); font-weight: 700; letter-spacing: 0.8px;">Account Name</span>
+                            <h3 class="fw-bold text-white mb-1" style="font-size: 24px;" th:text="${user.fullName}">Carlos Mendoza</h3>
+                            <span class="text-muted small" th:text="${user.email} + ' • Country: ' + ${user.country}">carlos.mendoza@email.com • Country: CO</span>
+                        </div>
+                    </div>
+
+                    <!-- Statuses Row -->
+                    <div class="d-flex gap-4 border-start border-secondary border-opacity-25 ps-4" style="min-width: 250px;">
+                        <div>
+                            <span class="text-muted small text-uppercase d-block" style="font-size: 10px; letter-spacing: 0.5px; margin-bottom: 5px;">KYC Status</span>
+                            <span class="badge py-2 px-3 text-uppercase"
+                                  th:classappend="${user.kycStatus == 'APPROVED'} ? 'bg-success' : (${user.kycStatus == 'REJECTED'} ? 'bg-danger' : 'bg-warning text-dark')"
+                                  th:text="${user.kycStatus}">PENDING</span>
+                        </div>
+                        <div>
+                            <span class="text-muted small text-uppercase d-block" style="font-size: 10px; letter-spacing: 0.5px; margin-bottom: 5px;">Account Level</span>
+                            <span class="fw-bold d-flex align-items-center gap-2" style="font-size: 14px; color: var(--winarena-primary);"><i class="fa-solid fa-shield-halved"></i> Tier 1 VIP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Lists -->
+                
+                <!-- 1. Update Username -->
+                <div class="profile-action-row">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="profile-action-icon-box"><i class="fa-regular fa-user"></i></div>
+                        <div>
+                            <h6 class="fw-bold text-white mb-1" style="font-size: 14px;">Update Username</h6>
+                            <span class="text-muted small" style="font-size: 12px;">Change your username. This is how other users will see you on the platform.</span>
+                        </div>
+                    </div>
+                    <button class="profile-outline-btn" onclick="alert('Function coming soon.');">Update Username <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- 2. Change Password -->
+                <div class="profile-action-row">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="profile-action-icon-box"><i class="fa-solid fa-lock"></i></div>
+                        <div>
+                            <h6 class="fw-bold text-white mb-1" style="font-size: 14px;">Change Password</h6>
+                            <span class="text-muted small" style="font-size: 12px;">Update your password regularly to keep your account secure.</span>
+                        </div>
+                    </div>
+                    <button class="profile-outline-btn" onclick="alert('Function coming soon.');">Change Password <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <!-- 3. Link Steam Account -->
+                <div class="profile-action-row">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="profile-action-icon-box"><i class="fa-brands fa-steam"></i></div>
+                        <div>
+                            <h6 class="fw-bold text-white mb-1" style="font-size: 14px;">Link Steam Account</h6>
+                            <span class="text-muted small" style="font-size: 12px;">Link your Steam account to unlock features and verify your gaming identity.</span>
+                        </div>
+                    </div>
+                    <button class="profile-outline-btn" onclick="alert('Steam integration coming soon.');">Link Steam Account <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay Menu -->
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div class="drawer-header">
+            <div class="d-flex align-items-center gap-2">
+                <div class="grid-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="logo-text" style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px;">Menu</span>
+            </div>
+            <button class="close-drawer-btn" onclick="toggleDrawer()">&times;</button>
+        </div>
+        <div class="drawer-user">
+            <div class="avatar-circle" style="width: 48px; height: 48px; border: 2px solid var(--winarena-primary); background: none;">
+                <img src="/img/user_avatar.jpg" alt="User Avatar" class="avatar-image">
+            </div>
+            <div class="username-container">
+                <span class="username-text" th:text="${user != null ? user.fullName : 'Jugador'}">Carlos Mendoza</span>
+                <i class="fa-solid fa-chevron-right username-arrow"></i>
+            </div>
+        </div>
+        <div class="drawer-nav">
+            <a href="home.html" class="drawer-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="profile.html" class="drawer-item active"><i class="fa-regular fa-user"></i> Profile</a>
+            <a href="settings.html" class="drawer-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="notifications.html" class="drawer-item"><i class="fa-regular fa-bell"></i> Notifications <span class="nav-badge">1</span></a>
+            <a href="my_bets.html" class="drawer-item"><i class="fa-solid fa-dice"></i> My bets</a>
+            <a href="start_kyc.html" class="drawer-item"><i class="fa-regular fa-circle-check"></i> Start KYC</a>
+            <a href="kyc_status_review.html" class="drawer-item"><i class="fa-solid fa-clock-rotate-left"></i> Verification status</a>
+            <hr style="border-color: #1f2a3f; margin: 15px 0;">
+            <a href="/logout" class="drawer-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+
+    <!-- Bootstrap & Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

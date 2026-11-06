@@ -1,0 +1,51 @@
+.backoffice-hero {
+    background: radial-gradient(circle at top right, #101827, #090e17);
+    padding: 100px 0;
+    border-bottom: 1px solid #1f2a3f;
+    text-align: left;
+}
+
+.backoffice-nav {
+    background-color: rgba(9, 14, 23, 0.95);
+    border-bottom: 1px solid #1f2a3f;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+}
+
+.backoffice-btn-primary {
+    background-color: var(--winarena-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(118, 51, 239, 0.3);
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.backoffice-btn-primary:hover {
+    background-color: var(--winarena-primary-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.backoffice-stat-card {
+    background-color: #0e1420;
+    border: 1px solid #1f2a3f;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+}
+
+.backoffice-stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--winarena-primary);
+    margin-bottom: 5px;
+}
